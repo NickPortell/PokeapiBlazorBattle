@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Web.UI.Dto.Request;
 using Web.UI.Dto.Response;
-using static System.Net.Http.HttpClient;
 using System.Net.Http.Json;
 using System.Net.Http;
 
