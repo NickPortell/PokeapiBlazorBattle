@@ -21,7 +21,7 @@ else
         <tbody>
             @foreach (var pokemon in PokemonList)
             {
-                PokemonData data = await Http.GetFromJsonAsync<PokemonData>(pokemon.Url);
+                @*PokemonData data = await Http.GetFromJsonAsync<PokemonData>(pokemon.Url);*@
 
 
                 <tr>
