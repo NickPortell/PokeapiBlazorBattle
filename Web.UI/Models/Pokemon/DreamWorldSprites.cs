@@ -7,8 +7,8 @@ namespace Web.UI.Models.Pokemon
 {
     public class DreamWorldSprites
     {
-        public string? Front_Default { get; set; }
+        public string Front_Default { get; set; }
 
-        public string? Front_Female { get; set; }
+        public string Front_Female { get; set; }
     }
 }

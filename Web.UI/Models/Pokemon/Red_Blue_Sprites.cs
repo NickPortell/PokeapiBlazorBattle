@@ -7,11 +7,11 @@ namespace Web.UI.Models.Pokemon
 {
     public class Red_Blue_Sprites
     {
-        public string? Back_Default { get; set; }
-        public string? Back_Gray { get; set; }
-        public string? Back_Transparent { get; set; }
-        public string? Front_Default { get; set; }
-        public string? Front_Gray { get; set; }
-        public string? Front_Transparent { get; set; }
+        public string Back_Default { get; set; }
+        public string Back_Gray { get; set; }
+        public string Back_Transparent { get; set; }
+        public string Front_Default { get; set; }
+        public string Front_Gray { get; set; }
+        public string Front_Transparent { get; set; }
     }
 }
