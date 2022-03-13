@@ -1,6 +1,8 @@
 ﻿@page "/fetchdata"
 @inject HttpClient Http
 @using Models.Pokemon
+@using Web.UI.Dto.Request
+@using Web.UI.PokeapiService.Repositories
 
 <h1>Weather forecast</h1>
 
@@ -22,10 +24,16 @@ else
             @foreach (var pokemon in PokemonList)
             {
                 @*PokemonData data = await Http.GetFromJsonAsync<PokemonData>(pokemon.Url);*@
-
+                var request = new GetPokemonRequestDto()
+                    {
+                        PokemonId = pokemon.Url.Split()[pokemon.Url.Length - 2],
+                        PokemonName = pokemon.Name.ToLower(),
+                    };
+                var data = PokeRepo.GetPokemonByName(request).Result;
 
                 <tr>
-                    <td>@pokemon.Name</td>
+                    <td>@data.Name</td>
+                    <td>@data.Id</td>
                 </tr>
             }
         </tbody>
@@ -33,6 +41,9 @@ else
 }
 
 @code {
+    private PokemonRepository PokeRepo = new PokemonRepository();
+
+    
     private PokemonCollection Pokes;
     private Pokemon[] PokemonList;
 
