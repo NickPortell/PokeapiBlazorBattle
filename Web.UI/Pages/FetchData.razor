@@ -7,7 +7,7 @@
 @*@using Web.UI.Dto.Request*@
 @*@using Web.UI.PokeapiService.Repositories*@
 
-<h1>Weather forecast</h1>
+<h1>Pokemon List</h1>
 
 <p>This component demonstrates fetching data from the server.</p>
 
@@ -60,10 +60,10 @@ else
         {
             string id = pokemon.Url.Split('/')[pokemon.Url.Split('/').Length - 2];
             var request = new GetPokemonRequestDto()
-                {
-                    //PokemonId = pokemon.Url.Split('/')[pokemon.Url.Length - 2],
-                    PokemonName = pokemon.Name
-                };
+            {
+                //PokemonId = pokemon.Url.Split('/')[pokemon.Url.Length - 2],
+                PokemonName = pokemon.Name
+            };
             var data = await PokeRepo.GetPokemonByName(request);
             pokeList.Add(data);
         }
