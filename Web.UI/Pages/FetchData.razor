@@ -1,8 +1,11 @@
 ﻿@page "/fetchdata"
 @inject HttpClient Http
-@using Models.Pokemon
 @using Web.UI.Dto.Request
+@using Web.UI.Dto.Response
+@using Web.UI.Models.Pokemon
 @using Web.UI.PokeapiService.Repositories
+@*@using Web.UI.Dto.Request*@
+@*@using Web.UI.PokeapiService.Repositories*@
 
 <h1>Weather forecast</h1>
 
@@ -21,19 +24,11 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var pokemon in PokemonList)
+            @foreach (var pokemon in ResponseList)
             {
-                @*PokemonData data = await Http.GetFromJsonAsync<PokemonData>(pokemon.Url);*@
-                var request = new GetPokemonRequestDto()
-                    {
-                        PokemonId = pokemon.Url.Split()[pokemon.Url.Length - 2],
-                        PokemonName = pokemon.Name.ToLower(),
-                    };
-                var data = PokeRepo.GetPokemonByName(request).Result;
-
                 <tr>
-                    <td>@data.Name</td>
-                    <td>@data.Id</td>
+                    <td>@pokemon.Name</td>
+                    <td>@pokemon.Id</td>
                 </tr>
             }
         </tbody>
@@ -43,15 +38,39 @@ else
 @code {
     private PokemonRepository PokeRepo = new PokemonRepository();
 
-    
+
     private PokemonCollection Pokes;
     private Pokemon[] PokemonList;
+    private List<GetPokemonResponseDto> ResponseList;
 
     protected override async Task OnInitializedAsync()
     {
-        Pokes = await Http.GetFromJsonAsync<PokemonCollection>("https://pokeapi.co/api/v2/pokemon?limit=2000");
+        Pokes = await Http.GetFromJsonAsync<PokemonCollection>("https://pokeapi.co/api/v2/pokemon?limit=10");
 
         PokemonList = Pokes.Results;
+
+        ResponseList = await GetPokeData(PokemonList);
     }
+
+    protected async Task<List<GetPokemonResponseDto>> GetPokeData(Pokemon[] pokemons)
+    {
+        List<GetPokemonResponseDto> pokeList = new List<GetPokemonResponseDto>();
+
+        foreach (var pokemon in pokemons)
+        {
+            string id = pokemon.Url.Split('/')[pokemon.Url.Split('/').Length - 2];
+            var request = new GetPokemonRequestDto()
+                {
+                    //PokemonId = pokemon.Url.Split('/')[pokemon.Url.Length - 2],
+                    PokemonName = pokemon.Name
+                };
+            var data = await PokeRepo.GetPokemonByName(request);
+            pokeList.Add(data);
+        }
+
+        return pokeList;
+    }
+
+
 
 }
