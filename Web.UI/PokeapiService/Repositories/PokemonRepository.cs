@@ -25,7 +25,7 @@ namespace Web.UI.PokeapiService.Repositories
                 var response = await PokemonClient.GetFromJsonAsync<GetPokemonResponseDto>(PokemonClient.BaseAddress + $"pokemon/{request.PokemonId}");
                 return response;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 var response = new GetPokemonResponseDto()
                 {
@@ -43,7 +43,7 @@ namespace Web.UI.PokeapiService.Repositories
                 var response = await PokemonClient.GetFromJsonAsync<GetPokemonResponseDto>(PokemonClient.BaseAddress + $"pokemon/{request.PokemonName}");
                 return response;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 var response = new GetPokemonResponseDto()
                 {
