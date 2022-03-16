@@ -1,11 +1,13 @@
 ﻿@page "/fetchdata"
 @inject HttpClient Http
+@using PokemonBattle.Models.V1.Pokemon
+@using PokemonBattle.Infrastructure.Repositories
 
-<h1>Weather forecast</h1>
+<h1>Pokemon List</h1>
 
 <p>This component demonstrates fetching data from the server.</p>
 
-@if (forecasts == null)
+@if (PokeCollection == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -14,20 +16,18 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
+                <th>Name</th>
+                <th>Id</th>
+                <th>Sprite</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var pokemon in PokemonDataList)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <td>@pokemon.Name</td>
+                    <td>@pokemon.Id</td>
+                    <td><img src="@pokemon.Sprites.Front_Default" /></td>
                 </tr>
             }
         </tbody>
@@ -35,21 +35,35 @@ else
 }
 
 @code {
-    private WeatherForecast[] forecasts;
+    private PokemonRepository PokeRepo = new PokemonRepository();
+    private SpriteRepository SpriteRepo = new SpriteRepository();
+    private PokemonCollection PokeCollection;
+    private List<PokemonData> PokemonDataList;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        PokeCollection = await PokeRepo.MapPokemonCollection(10, 10);
+        PokemonDataList = await GetPokeData(PokeCollection.Results);
     }
 
-    public class WeatherForecast
+    protected async Task<List<PokemonData>> GetPokeData(Pokemon[] pokemons)
     {
-        public DateTime Date { get; set; }
+        List<PokemonData> pokemonDataList = new List<PokemonData>();
 
-        public int TemperatureC { get; set; }
+        foreach (var pokemon in pokemons)
+        {
+            PokemonData poke = new PokemonData
+            {
+                //Id = int.Parse(pokemon.Url.Split('/')[pokemon.Url.Length - 2]),
+                Name = pokemon.Name
+            };
 
-        public string Summary { get; set; }
+            poke = await PokeRepo.MapPokemonToPokemonData(poke);
+            //poke = await SpriteRepo.MapBaseSpritesToPokemonData(poke);
 
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+            pokemonDataList.Add(poke);
+        }
+
+        return pokemonDataList;
     }
 }
