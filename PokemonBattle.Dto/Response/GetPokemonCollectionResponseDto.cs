@@ -1,4 +1,4 @@
-﻿using Web.UI.Models.Pokemon;
+﻿using  PokemonBattle.Models.V1.Pokemon;
 
 namespace PokemonBattle.Dto.Response
 {
