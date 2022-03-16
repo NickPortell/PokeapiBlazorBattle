@@ -2,7 +2,7 @@
 {
     public class GetPokemonRequestDto
     {
-        public string PokemonId { get; set; }
+        public int PokemonId { get; set; }
 
         public string PokemonName { get; set; }
 
