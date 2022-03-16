@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.UI", "Web.UI\Web.UI.csproj", "{6FC0DDA4-D58B-45DC-8653-A9473C59FB74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.UI", "Web.UI\Web.UI.csproj", "{6FC0DDA4-D58B-45DC-8653-A9473C59FB74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonBattle.Client", "PokemonBattle.Client\PokemonBattle.Client.csproj", "{C41855DE-F03D-4DF7-B275-FE18DB5FEBD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonBattle.Models", "PokemonBattle.Models\PokemonBattle.Models.csproj", "{7B4324D6-8BB2-46A4-84E9-4C8B8EA2B2EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{6FC0DDA4-D58B-45DC-8653-A9473C59FB74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FC0DDA4-D58B-45DC-8653-A9473C59FB74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FC0DDA4-D58B-45DC-8653-A9473C59FB74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C41855DE-F03D-4DF7-B275-FE18DB5FEBD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C41855DE-F03D-4DF7-B275-FE18DB5FEBD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C41855DE-F03D-4DF7-B275-FE18DB5FEBD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C41855DE-F03D-4DF7-B275-FE18DB5FEBD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B4324D6-8BB2-46A4-84E9-4C8B8EA2B2EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B4324D6-8BB2-46A4-84E9-4C8B8EA2B2EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B4324D6-8BB2-46A4-84E9-4C8B8EA2B2EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B4324D6-8BB2-46A4-84E9-4C8B8EA2B2EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
