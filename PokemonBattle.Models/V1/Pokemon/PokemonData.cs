@@ -1,4 +1,4 @@
-﻿namespace PokemonBattle.Models.Pokemon
+﻿namespace PokemonBattle.Models.V1.Pokemon
 {
     public class PokemonData
     {

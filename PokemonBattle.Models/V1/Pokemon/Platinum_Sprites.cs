@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PokemonBattle.Models.Pokemon
+namespace PokemonBattle.Models.V1.Pokemon
 {
     public class Platinum_Sprites
     {
