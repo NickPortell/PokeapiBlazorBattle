@@ -6,7 +6,7 @@
         public int Base_Experience { get; set; }
         public Form[] Forms { get; set; }
         public Game[] Game_Indices { get; set; }
-        public string Height { get; set; }
+        public int Height { get; set; }
         public HeldItem[] Held_Items { get; set; }
         public int Id { get; set; }
         public bool Is_Default { get; set; }
