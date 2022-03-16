@@ -1,0 +1,68 @@
+﻿@page "/fetchdata"
+@using PokemonBattle.Models.V1.Pokemon
+@using PokemonBattle.Infrastructure.Repositories
+
+<h1>Pokemon List</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (PokeCollection == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Id</th>
+                <th>Sprite</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pokemon in PokemonDataList)
+            {
+                <tr>
+                    <td>@pokemon.Name</td>
+                    <td>@pokemon.Id</td>
+                    <td><img src="@pokemon.Sprites.Front_Default" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private PokemonRepository PokeRepo = new PokemonRepository();
+    private SpriteRepository SpriteRepo = new SpriteRepository();
+    private PokemonCollection PokeCollection;
+    private List<PokemonData> PokemonDataList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        PokeCollection = await PokeRepo.MapPokemonCollection(10, 10);
+        PokemonDataList = await GetPokeData(PokeCollection.Results);
+    }
+
+    protected async Task<List<PokemonData>> GetPokeData(Pokemon[] pokemons)
+    {
+        List<PokemonData> pokemonDataList = new List<PokemonData>();
+
+        foreach (var pokemon in pokemons)
+        {
+            PokemonData poke = new PokemonData
+            {
+                //Id = int.Parse(pokemon.Url.Split('/')[pokemon.Url.Length - 2]),
+                Name = pokemon.Name
+            };
+
+            poke = await PokeRepo.MapPokemonToPokemonData(poke);
+            //poke = await SpriteRepo.MapBaseSpritesToPokemonData(poke);
+
+            pokemonDataList.Add(poke);
+        }
+
+        return pokemonDataList;
+    }
+}
