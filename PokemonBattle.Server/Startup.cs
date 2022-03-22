@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -45,6 +46,10 @@ namespace PokemonBattle.Server
                     };
                 });
             }
+            services.AddBlazoredLocalStorage();
+            services.AddSignalR(e => {
+                e.MaximumReceiveMessageSize = 102400000;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
