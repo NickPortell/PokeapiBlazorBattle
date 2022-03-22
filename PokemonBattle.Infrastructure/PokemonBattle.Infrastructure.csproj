@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PokemonBattle.Dto\PokemonBattle.Dto.csproj" />
+    <ProjectReference Include="..\PokemonBattle.Models\PokemonBattle.Models.csproj" />
+  </ItemGroup>
+
+</Project>

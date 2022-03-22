@@ -27,7 +27,7 @@ else
                 <tr>
                     <td>@pokemon.Name</td>
                     <td>@pokemon.Id</td>
-                    <td><img src="@pokemon.Sprites.Front_Default"/></td>
+                    <td><img src="@pokemon.Sprites.Front_Default" /></td>
                 </tr>
             }
         </tbody>
@@ -53,10 +53,10 @@ else
         foreach (var pokemon in pokemons)
         {
             PokemonData poke = new PokemonData
-                {
-                    //Id = int.Parse(pokemon.Url.Split('/')[pokemon.Url.Length - 2]),
-                    Name = pokemon.Name
-                };
+            {
+                //Id = int.Parse(pokemon.Url.Split('/')[pokemon.Url.Length - 2]),
+                Name = pokemon.Name
+            };
 
             poke = await PokeRepo.MapPokemonToPokemonData(poke);
             //poke = await SpriteRepo.MapBaseSpritesToPokemonData(poke);
