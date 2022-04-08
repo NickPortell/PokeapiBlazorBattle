@@ -49,12 +49,24 @@ else
 
     protected async Task GetTableData()
     {
+        PokeCollection = await GetPokemonCollection();
+        PokemonDataList = await GetPokemonDataList();
+    }
+
+    public async void Clear()
+    {
+        //this will clear the local storage
+        await LocalStorage.ClearAsync();
+    }
+
+    public async Task<PokemonCollection> GetPokemonCollection()
+    {
         bool localStorageHasPokeCollection = await LocalStorage.ContainKeyAsync("PokeCollection");
         if (localStorageHasPokeCollection)
         {
-            var pokemonCollection = await LocalStorage.GetItemAsync<PokemonCollection>("PokeCollection");
+            var pokeCollectionLocally = await LocalStorage.GetItemAsync<PokemonCollection>("PokeCollection");
 
-            if (pokemonCollection == null)
+            if (pokeCollectionLocally == null)
             {
                 var mappedPokemon = await PokeRepo.MapPokemonCollection(10, 10);
                 await LocalStorage.SetItemAsync("PokeCollection", mappedPokemon);
@@ -65,9 +77,11 @@ else
             var mappedPokemon = await PokeRepo.MapPokemonCollection(10, 10);
             await LocalStorage.SetItemAsync("PokeCollection", mappedPokemon);
         }
-        PokeCollection = await LocalStorage.GetItemAsync<PokemonCollection>("PokeCollection");
+        return await LocalStorage.GetItemAsync<PokemonCollection>("PokeCollection");
+    }
 
-
+    public async Task<List<PokemonData>> GetPokemonDataList()
+    {
         bool localStorageHasPokemonDataList = await LocalStorage.ContainKeyAsync("PokemonDataList");
         if (localStorageHasPokemonDataList)
         {
@@ -84,25 +98,19 @@ else
             var pokeData = await GetPokeData(PokeCollection.Results);
             await LocalStorage.SetItemAsync("PokemonDataList", pokeData);
         }
-        PokemonDataList = await LocalStorage.GetItemAsync<List<PokemonData>>("PokemonDataList");
+        return await LocalStorage.GetItemAsync<List<PokemonData>>("PokemonDataList");
     }
 
-    public async void Clear()
-    {
-        //this will clear the local storage
-        await LocalStorage.ClearAsync();
-    }
-
-    protected async Task<List<PokemonData>> GetPokeData(Pokemon[] pokemons)
+    public async Task<List<PokemonData>> GetPokeData(Pokemon[] pokemons)
     {
         List<PokemonData> pokemonDataList = new List<PokemonData>();
 
         foreach (var pokemon in pokemons)
         {
             PokemonData poke = new PokemonData
-                {
-                    Name = pokemon.Name
-                };
+            {
+                Name = pokemon.Name
+            };
 
             poke = await PokeRepo.MapPokemonToPokemonData(poke);
 
