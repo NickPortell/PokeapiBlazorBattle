@@ -1,12 +1,13 @@
 ﻿@page "/fetchdata"
 @using PokemonBattle.Models.V1.Pokemon
 @using PokemonBattle.Infrastructure.Repositories
+@inject ILocalStorageService LocalStorage;
 
 <h1>Pokemon List</h1>
 
 <p>This component demonstrates fetching data from the server.</p>
 
-@if (PokeCollection == null)
+@if (isInitialized == false)
 {
     <p><em>Loading...</em></p>
 }
@@ -38,14 +39,69 @@ else
     private SpriteRepository SpriteRepo = new SpriteRepository();
     private PokemonCollection PokeCollection;
     private List<PokemonData> PokemonDataList;
+    private bool isInitialized;
 
     protected override async Task OnInitializedAsync()
     {
-        PokeCollection = await PokeRepo.MapPokemonCollection(10, 10);
-        PokemonDataList = await GetPokeData(PokeCollection.Results);
+        await GetTableData();
+        isInitialized = PokeCollection != null && PokemonDataList != null;
     }
 
-    protected async Task<List<PokemonData>> GetPokeData(Pokemon[] pokemons)
+    protected async Task GetTableData()
+    {
+        PokeCollection = await GetPokemonCollection();
+        PokemonDataList = await GetPokemonDataList();
+    }
+
+    public async void Clear()
+    {
+        //this will clear the local storage
+        await LocalStorage.ClearAsync();
+    }
+
+    public async Task<PokemonCollection> GetPokemonCollection()
+    {
+        bool localStorageHasPokeCollection = await LocalStorage.ContainKeyAsync("PokeCollection");
+        if (localStorageHasPokeCollection)
+        {
+            var pokeCollectionLocally = await LocalStorage.GetItemAsync<PokemonCollection>("PokeCollection");
+
+            if (pokeCollectionLocally == null)
+            {
+                var mappedPokemon = await PokeRepo.MapPokemonCollection(10, 10);
+                await LocalStorage.SetItemAsync("PokeCollection", mappedPokemon);
+            }
+        }
+        else
+        {
+            var mappedPokemon = await PokeRepo.MapPokemonCollection(10, 10);
+            await LocalStorage.SetItemAsync("PokeCollection", mappedPokemon);
+        }
+        return await LocalStorage.GetItemAsync<PokemonCollection>("PokeCollection");
+    }
+
+    public async Task<List<PokemonData>> GetPokemonDataList()
+    {
+        bool localStorageHasPokemonDataList = await LocalStorage.ContainKeyAsync("PokemonDataList");
+        if (localStorageHasPokemonDataList)
+        {
+            var pokemonDataList = await LocalStorage.GetItemAsync<List<PokemonData>>("PokemonDataList");
+
+            if (pokemonDataList == null)
+            {
+                var pokeData = await GetPokeData(PokeCollection.Results);
+                await LocalStorage.SetItemAsync("PokemonDataList", pokeData);
+            }
+        }
+        else
+        {
+            var pokeData = await GetPokeData(PokeCollection.Results);
+            await LocalStorage.SetItemAsync("PokemonDataList", pokeData);
+        }
+        return await LocalStorage.GetItemAsync<List<PokemonData>>("PokemonDataList");
+    }
+
+    public async Task<List<PokemonData>> GetPokeData(Pokemon[] pokemons)
     {
         List<PokemonData> pokemonDataList = new List<PokemonData>();
 
@@ -53,12 +109,10 @@ else
         {
             PokemonData poke = new PokemonData
             {
-                //Id = int.Parse(pokemon.Url.Split('/')[pokemon.Url.Length - 2]),
                 Name = pokemon.Name
             };
 
             poke = await PokeRepo.MapPokemonToPokemonData(poke);
-            //poke = await SpriteRepo.MapBaseSpritesToPokemonData(poke);
 
             pokemonDataList.Add(poke);
         }
