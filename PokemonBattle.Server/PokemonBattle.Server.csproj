@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+
     <ProjectReference Include="..\PokemonBattle.Infrastructure\PokemonBattle.Infrastructure.csproj" />
   </ItemGroup>
 

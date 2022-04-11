@@ -1,4 +1,4 @@
-﻿@page "/fetchdata"
+@page "/fetchdata"
 @using PokemonBattle.Models.V1.Pokemon
 @using PokemonBattle.Infrastructure.Repositories
 @inject ILocalStorageService LocalStorage;
@@ -8,6 +8,7 @@
 <p>This component demonstrates fetching data from the server.</p>
 
 @if (isInitialized == false)
+
 {
     <p><em>Loading...</em></p>
 }
