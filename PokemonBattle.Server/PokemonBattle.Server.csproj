@@ -13,4 +13,8 @@
     <ProjectReference Include="..\PokemonBattle.Infrastructure\PokemonBattle.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\Views\" />
+  </ItemGroup>
+
 </Project>
