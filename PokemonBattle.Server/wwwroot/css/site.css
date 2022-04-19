@@ -48,3 +48,41 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+.pokemon-team-container {
+    background-color: darkgrey;
+    border-radius: 5%;
+    width: fit-content;
+}
+
+.pokemon-team {
+
+}
+
+.pokemon-team-slot-group {
+
+}
+
+.pokemon-team-slot {
+    margin:auto;
+    border-color: black !important;
+    border: solid;
+}
+
+.pokemon-team-img {
+    margin-bottom:50%;
+}
+
+.pokemon-team-img > img {
+    max-width: 96px;
+    max-height: 96px;
+}
+
+.pokemon-team-img > .empty-slot{
+    bottom: 0px;
+}
+
+.pokemon-team-name > p{
+    text-align: center;
+    margin: auto;
+}
