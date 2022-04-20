@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NewFolder\**" />
+    <Content Remove="NewFolder\**" />
+    <EmbeddedResource Remove="NewFolder\**" />
+    <None Remove="NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
   </ItemGroup>
 
@@ -15,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="Components\Views\" />
-    <Folder Include="NewFolder\" />
   </ItemGroup>
 
 </Project>
