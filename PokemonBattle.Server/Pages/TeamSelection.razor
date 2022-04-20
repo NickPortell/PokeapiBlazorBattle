@@ -9,67 +9,59 @@
 }
 else
 {
-    <table class="table pokemon-team-container">
-        <tbody class="pokemon-team">
-            <tr class="pokemon-team-slot-group">
-                @for (int i = 0; i < 3; i++)
-                {
-                    <td class="pokemon-team-slot">
-                        @if (PokemonTeam[i] != null)
-                        {
-                            <div class="pokemon-team-img">
-                                <img class="@PokemonTeam[i].Name" src="@PokemonTeam[i].Sprites.Front_Default" />
-                            </div>
-                            <br />
-                            <div class="pokemon-team-name">
-                                <p>@PokemonTeam[i].Name.ToUpper()</p>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="pokemon-team-img">
-                                <img class="empty-slot" src="@DefaultTeamPokemonImgUrl" alt="EmptyPokeball" />
-                            </div>
-                            <br />
-                            <div class="pokemon-team-name">
-                                <p>Empty</p>
-                            </div>
-                        }
-                    </td>
-                }
-            </tr>
-            <tr class="pokemon-team-slot-group">
-                @for (int i = PokemonTeam.Count - 1; i >= 3; i--)
-                {
-                    <td class="pokemon-team-slot">
-                        @if (PokemonTeam[i] != null)
-                        {
-                            <div class="pokemon-team-img">
-                                <img class="@PokemonTeam[i].Name" src="@PokemonTeam[i].Sprites.Front_Default" />
-                            </div>
-                            <br />
-                            <div class="pokemon-team-name">
-                                <p>@PokemonTeam[i].Name.ToUpper()</p>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="pokemon-team-img">
-                                <img class="empty-slot" src="@DefaultTeamPokemonImgUrl" alt="EmptyPokeball" />
-                            </div>
-                            <br />
-                            <div class="pokemon-team-name">
-                                <p>Empty</p>
-                            </div>
-                        }
-                    </td>
-                }
-            </tr>
-        </tbody>
-    </table>
+    <div class="pokemon-team-container container">
+        <div class="pokemon-team-slot-group row" >
+            @for (int i = 0; i < 3; i++)
+        {
+                     <div class="pokemon-team-slot col-4 col-sm-4">
+                         @if (PokemonTeam[i] != null)
+                         {
+                             <div class="pokemon-team-img row">
+                                 <img name="@PokemonTeam[i].Name" src="@PokemonTeam[i].Sprites.Front_Default" alt="@PokemonTeam[i].Name"/>
+                             </div>
+                             <div class="pokemon-team-name row">
+                                 <p>@PokemonTeam[i].Name.ToUpper()</p>
+                             </div>
+                         }
+                         else
+                         {
+                             <div class="pokemon-team-img row">
+                                 <img class="empty-pokeball" src="@DefaultTeamPokemonImgUrl" alt="EmptyPokeball" />
+                             </div>
+                             <div class="pokemon-team-name row">
+                                 <p>Empty</p>
+                             </div>
+                         }
+                     </div>
+        }
+        </div>
+        <div class="pokemon-team-slot-group row" >
+            @for (int i = PokemonTeam.Count - 1; i >= 3; i--)
+        {
+            <div class="pokemon-team-slot col-4 col-sm-4">
+                         @if (PokemonTeam[i] != null)
+                         {
+                             <div class="pokemon-team-img row">
+                                 <img name="@PokemonTeam[i].Name" src="@PokemonTeam[i].Sprites.Front_Default" alt="@PokemonTeam[i].Name"/>
+                             </div>
+                             <div class="pokemon-team-name row">
+                                 <p>@PokemonTeam[i].Name.ToUpper()</p>
+                             </div>
+                         }
+                         else
+                         {
+                             <div class="pokemon-team-img row">
+                                 <img class="empty-pokeball" src="@DefaultTeamPokemonImgUrl" alt="EmptyPokeball" />
+                             </div>
+                             <div class="pokemon-team-name row">
+                                 <p>Empty</p>
+                             </div>
+                         }
+                     </div>
+        }
+        </div>
+    </div>
     <EditForm Model="@PokemonTeam">
-        <div class="form-group row">
-            <div>
                 <label for="searchable-pokedataList">
                     Pokemon Selection
                 </label>
@@ -80,12 +72,7 @@ else
                         <option value="@pokemon.Id.ToString()">@pokemon.Name.ToUpper()</option>
                         }
                 </InputSelect>
-            </div>
-            <div>
                 <img src="@(String.IsNullOrEmpty(SelectedPokeId) || SelectedPokeId == "Default" ? DefaultPokemonImg : PokemonDataList.FirstOrDefault(p => p.Id.ToString() == SelectedPokeId).Sprites.Front_Default)" />
-            </div>
-        </div>
-
     </EditForm>
 
 }
