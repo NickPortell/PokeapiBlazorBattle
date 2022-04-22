@@ -9,70 +9,43 @@
 }
 else
 {
-    <div class="pokemon-team-container container">
-        <div class="pokemon-team-slot-group row" >
-            @for (int i = 0; i < 3; i++)
+    <div class=@PokemonTeamContainerBaseClass>
+        @for (int i = 0; i < PokemonTeam.Count; i++)
         {
-                     <div class="pokemon-team-slot col-4 col-sm-4">
-                         @if (PokemonTeam[i] != null)
-                         {
-                             <div class="pokemon-team-img row">
-                                 <img name="@PokemonTeam[i].Name" src="@PokemonTeam[i].Sprites.Front_Default" alt="@PokemonTeam[i].Name"/>
-                             </div>
-                             <div class="pokemon-team-name row">
-                                 <p>@PokemonTeam[i].Name.ToUpper()</p>
-                             </div>
-                         }
-                         else
-                         {
-                             <div class="pokemon-team-img row">
-                                 <img class="empty-pokeball" src="@DefaultTeamPokemonImgUrl" alt="EmptyPokeball" />
-                             </div>
-                             <div class="pokemon-team-name row">
-                                 <p>Empty</p>
-                             </div>
-                         }
-                     </div>
-        }
+        <div class=@PokemonTeamSlotBaseClass @onclick=@ClickPokemon>
+            @if (PokemonTeam[i] != null)
+            {
+                <div class=@PokemonTeamImageBaseClass>
+                    <img name="@PokemonTeam[i].Name" src="@PokemonTeam[i].Sprites.Front_Default" alt="@PokemonTeam[i].Name" />
+                </div>
+                <div class=@PokemonTeamNameBaseClass>
+                    <p>@PokemonTeam[i].Name.ToUpper()</p>
+                </div>
+            }
+            else
+            {
+                <div class=@PokemonTeamImageBaseClass>
+                    <img class=@EmptyPokemonBaseClass src="@DefaultTeamPokemonImgUrl" alt="EmptyPokeball" />
+                </div>
+                <div class=@PokemonTeamNameBaseClass>
+                    <p>Empty</p>
+                </div>
+            }
         </div>
-        <div class="pokemon-team-slot-group row" >
-            @for (int i = PokemonTeam.Count - 1; i >= 3; i--)
-        {
-            <div class="pokemon-team-slot col-4 col-sm-4">
-                         @if (PokemonTeam[i] != null)
-                         {
-                             <div class="pokemon-team-img row">
-                                 <img name="@PokemonTeam[i].Name" src="@PokemonTeam[i].Sprites.Front_Default" alt="@PokemonTeam[i].Name"/>
-                             </div>
-                             <div class="pokemon-team-name row">
-                                 <p>@PokemonTeam[i].Name.ToUpper()</p>
-                             </div>
-                         }
-                         else
-                         {
-                             <div class="pokemon-team-img row">
-                                 <img class="empty-pokeball" src="@DefaultTeamPokemonImgUrl" alt="EmptyPokeball" />
-                             </div>
-                             <div class="pokemon-team-name row">
-                                 <p>Empty</p>
-                             </div>
-                         }
-                     </div>
         }
-        </div>
     </div>
     <EditForm Model="@PokemonTeam">
-                <label for="searchable-pokedataList">
-                    Pokemon Selection
-                </label>
-                <InputSelect id="searchable-pokedataList" @bind-Value="@SelectedPokeId">
-                    <option value="Default">Select one..</option>
-                    @foreach (var pokemon in PokemonDataList)
-                        {
-                        <option value="@pokemon.Id.ToString()">@pokemon.Name.ToUpper()</option>
-                        }
-                </InputSelect>
-                <img src="@(String.IsNullOrEmpty(SelectedPokeId) || SelectedPokeId == "Default" ? DefaultPokemonImg : PokemonDataList.FirstOrDefault(p => p.Id.ToString() == SelectedPokeId).Sprites.Front_Default)" />
+        <label class="pokemon-selection-title" for="searchable-pokedataList">
+            Pokemon Selection
+        </label>
+        <InputSelect id="searchable-pokedataList" @bind-Value="@SelectedPokeId">
+            <option value="Default">Select one..</option>
+            @foreach (var pokemon in PokemonDataList)
+                {
+                <option value="@pokemon.Id.ToString()">@pokemon.Name.ToUpper()</option>
+                }
+        </InputSelect>
+        <img src="@(String.IsNullOrEmpty(SelectedPokeId) || SelectedPokeId == "Default" ? DefaultPokemonImg : PokemonDataList.FirstOrDefault(p => p.Id.ToString() == SelectedPokeId).Sprites.Front_Default)" />
     </EditForm>
 
 }

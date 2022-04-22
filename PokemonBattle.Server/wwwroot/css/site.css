@@ -2,7 +2,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color:seagreen;
+    background-color: seagreen;
 }
 
 a, .btn-link {
@@ -52,48 +52,53 @@ a, .btn-link {
 
 .pokemon-team-container {
     background-color: darkgrey;
-    border-color: black;
-    border: solid thick;
-    border-width:15px;
-    border-radius: 5%;
-    width:460px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: fit-content;
+    flex-wrap: wrap;
 }
 
 .pokemon-team-slot {
-    border-inline: solid;
-    border-bottom: solid;
-    border-width: 5px;
+    border: solid;
+    flex-direction: column;
+    display: flex;
+    justify-content: flex-end;
+    width: 33%;
 }
 
+    .pokemon-team-slot.Clicked {
+        border-color: gold !important;
+    }
+
 .pokemon-team-img {
-    height: 50%;
+    display: flex;
+    justify-content: center;
 }
 
     .pokemon-team-img > img {
-        max-width: 96px;
-        max-height: 96px;
-        margin:auto;
+        /*      max-width: 96px;
+        max-height: 96px;*/
     }
 
     .pokemon-team-img > .empty-pokeball {
-        padding-top: 20px;
-
+        max-width: 96px;
+        padding-bottom: 20px;
         transition-delay: .15s;
-        transition-duration:.25s;
-        transition-property: max-height max-width padding-top;
+        transition-duration: .25s;
     }
 
         .pokemon-team-img > .empty-pokeball:hover {
-            max-width: 64px;
-            max-height: 64px;
-            padding-top: 25px;
+            padding: 24px;
         }
 
 .pokemon-team-name {
-    height: 50%;
 }
 
     .pokemon-team-name > p {
         text-align: center;
-        margin: auto;
     }
+
+.pokemon-selection-title {
+    color: white;
+}
