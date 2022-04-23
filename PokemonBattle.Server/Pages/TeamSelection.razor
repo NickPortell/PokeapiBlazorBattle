@@ -12,25 +12,18 @@ else
     <div class=@PokemonTeamContainerBaseClass>
         @for (int i = 0; i < PokemonTeam.Count; i++)
         {
-        <div class=@PokemonTeamSlotBaseClass @onclick=@ClickPokemon>
-            @if (PokemonTeam[i] != null)
-            {
-                <div class=@PokemonTeamImageBaseClass>
-                    <img name="@PokemonTeam[i].Name" src="@PokemonTeam[i].Sprites.Front_Default" alt="@PokemonTeam[i].Name" />
-                </div>
-                <div class=@PokemonTeamNameBaseClass>
-                    <p>@PokemonTeam[i].Name.ToUpper()</p>
-                </div>
-            }
-            else
-            {
-                <div class=@PokemonTeamImageBaseClass>
-                    <img class=@EmptyPokemonBaseClass src="@DefaultTeamPokemonImgUrl" alt="EmptyPokeball" />
-                </div>
-                <div class=@PokemonTeamNameBaseClass>
-                    <p>Empty</p>
-                </div>
-            }
+        <div id=@(PokemonTeam[i] != null ? PokemonTeam[i].Id : "empty-slot-" + i) 
+             class=@PokemonTeamSlotBaseClass 
+             @onclick="ClickPokemon">
+            <div class=@PokemonTeamImageBaseClass>
+                <img name=@(PokemonTeam[i] != null ? PokemonTeam[i].Name : "empty-pokemon") 
+                     class=@(PokemonTeam[i] != null ? PokemonTeam[i].Name + "-img" : EmptyPokemonBaseClass) 
+                     src=@(PokemonTeam[i] != null ? PokemonTeam[i].Sprites.Front_Default : @DefaultTeamPokemonImgUrl) 
+                     alt=@(PokemonTeam[i] != null ? PokemonTeam[i].Name : "EmptyPokeball") />
+            </div>
+            <div class=@PokemonTeamNameBaseClass>
+                <p>@(PokemonTeam[i] != null ? PokemonTeam[i].Name.ToUpper() : "Empty")</p>
+            </div>
         </div>
         }
     </div>
@@ -52,5 +45,5 @@ else
 
 
 @code {
-
+    
 }
