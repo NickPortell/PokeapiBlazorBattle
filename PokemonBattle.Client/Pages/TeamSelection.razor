@@ -22,14 +22,14 @@ else
         <label class="pokemon-selection-title" for="searchable-pokedataList">
             Pokemon Selection
         </label>
-        <InputSelect id="searchable-pokedataList" @bind-Value="@SelectedPokeId">
+        <InputSelect id="searchable-pokedataList" @bind-Value="@SelectedPokeSlotId">
             <option value="Default">Select one..</option>
             @foreach (var pokemon in PokemonDataList)
                 {
                 <option value="@pokemon.Id.ToString()">@pokemon.Name.ToUpper()</option>
                 }
         </InputSelect>
-        <img src="@(String.IsNullOrEmpty(SelectedPokeId) || SelectedPokeId == "Default" ? DefaultPokemonImg : PokemonDataList.FirstOrDefault(p => p.Id.ToString() == SelectedPokeId).Sprites.Front_Default)" />
+        <img src="@(String.IsNullOrEmpty(SelectedPokeSlotId) || SelectedPokeSlotId == "Default" ? DefaultPokemonImg : PokemonDataList.FirstOrDefault(p => p.Id.ToString() == SelectedPokeSlotId).Sprites.Front_Default)" />
     </EditForm>
 
 }

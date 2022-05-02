@@ -19,7 +19,7 @@ namespace PokemonBattle.Client.Components.Classes.Shared
 
         public List<PokemonData> PokemonTeam { get; set; } = new List<PokemonData>();
 
-        public string SelectedPokeId { get; set; }
+        public string SelectedPokeSlotId { get; set; }
 
         public bool isInitialized;
 
@@ -33,6 +33,8 @@ namespace PokemonBattle.Client.Components.Classes.Shared
 
         public List<string> PokemonTeamSlotClasses = new List<string>();
         public Dictionary<string, ElementReference> PokemonTeamSlotElements = new Dictionary<string, ElementReference>();
+
+        public ElementReference SelectedPokemonSlot { get; set; }
 
         [Inject]
         private IJSRuntime JSRuntime { get; set; }
@@ -155,9 +157,12 @@ namespace PokemonBattle.Client.Components.Classes.Shared
             return pokeDataList;
         }
 
-        public void ClickPokemon(ElementReference slot, MouseEventArgs args)
+        public async void ClickPokemon(ElementReference slot, string slotId, MouseEventArgs args)
         {
-            JSRuntime.InvokeVoidAsync("clickPokemonTeamSlot", slot);
+            SelectedPokeSlotId = slotId;
+            //SelectedPokemonSlot = await JSRuntime.InvokeAsync<ElementReference>("setSelectedPokemon", slotId);
+            JSRuntime.InvokeVoidAsync("deselectOtherTeamSlots", PokemonTeamSlotBaseClass, ClickedClass);
+            JSRuntime.InvokeVoidAsync("clickPokemonTeamSlot", slot, ClickedClass);
         }
     }
 }
