@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Blazored.LocalStorage;
 using System.IO;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 
 namespace PokemonBattle.Server.Components.Classes.Shared
 {
@@ -32,6 +34,12 @@ namespace PokemonBattle.Server.Components.Classes.Shared
 
         public string ClickedClass = "Clicked";
 
+        public List<string> PokemonTeamSlotClasses = new List<string>();
+        public Dictionary<string, ElementReference> PokemonTeamSlotElements = new Dictionary<string, ElementReference>();
+
+        [Inject]
+        private IJSRuntime JSRuntime { get; set; }
+
         [Inject]
         public ILocalStorageService LocalStorage { get; set; }
 
@@ -44,17 +52,26 @@ namespace PokemonBattle.Server.Components.Classes.Shared
             Pokedex = await GetPokemonCollection();
             PokemonDataList = await GetPokemonDataList();
             PokemonTeam = GetTableData();
-            SetPokemonTeamClasses();
+            SetBaseClasses();
+            SetPokemonTeamSlotClasses();
             isInitialized = Pokedex != null && PokemonDataList != null && PokemonTeam != null;
         }
 
-        public void SetPokemonTeamClasses()
+        public void SetBaseClasses()
         {
             PokemonTeamContainerBaseClass = "pokemon-team-container";
             PokemonTeamSlotBaseClass = "pokemon-team-slot";
             PokemonTeamImageBaseClass = "pokemon-team-img";
             PokemonTeamNameBaseClass = "pokemon-team-name";
             EmptyPokemonBaseClass = "empty-pokeball";
+        }
+
+        public void SetPokemonTeamSlotClasses()
+        {
+            for (int i = 0; i < PokemonTeam.Count; i++)
+            {
+                PokemonTeamSlotClasses.Add(PokemonTeamSlotBaseClass);
+            }
         }
 
         public async Task<PokemonCollection> GetPokemonCollection()
@@ -138,18 +155,9 @@ namespace PokemonBattle.Server.Components.Classes.Shared
             return pokeDataList;
         }
 
-        public void ClickPokemon()
+        public void ClickPokemon(ElementReference slot, MouseEventArgs args)
         {
-            if (!PokemonTeamSlotBaseClass.Contains(ClickedClass))
-            {
-                PokemonTeamSlotBaseClass += " " + ClickedClass;
-            }
-            else
-            {
-                int startIndex = PokemonTeamSlotBaseClass.IndexOf(ClickedClass);
-
-                PokemonTeamSlotBaseClass = PokemonTeamSlotBaseClass.Remove(startIndex, ClickedClass.Length).TrimEnd();
-            }
+            JSRuntime.InvokeVoidAsync("clickPokemonTeamSlot", slot);
         }
     }
 }

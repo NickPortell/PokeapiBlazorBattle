@@ -70,7 +70,6 @@ a, .btn-link {
 }
 
 .pokemon-team-container {
-    background-color: darkgrey;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -79,6 +78,7 @@ a, .btn-link {
 }
 
 .pokemon-team-slot {
+    background-color: darkgrey;
     border: solid;
     flex-direction: column;
     display: flex;
