@@ -48,3 +48,23 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+.sidebar {
+    display: flex;
+    flex-basis: fit-content;
+    flex-direction: column;
+}
+
+.navbar {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.navbar-toggler {
+    display:inline-block !important;
+}
+
+.collapse{
+    display:none !important;
+}
+
