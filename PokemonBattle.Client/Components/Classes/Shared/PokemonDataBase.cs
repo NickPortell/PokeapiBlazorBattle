@@ -53,17 +53,8 @@ namespace PokemonBattle.Client.Components.Classes.Shared
             PokemonTeam = GetTableData();
             SetBaseClasses();
             SetPokemonTeamSlotClasses();
-            GenerateSlots();
             JSModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Scripts/TeamSelection.js");
             isInitialized = Pokedex != null && PokemonDataList != null && PokemonTeam != null;
-        }
-
-        public void GenerateSlots()
-        {
-            foreach (var pokemon in PokemonTeam)
-            {
-                PokemonTeamSlotElements.Add(pokemon.Name, new ElementReference());
-            }
         }
 
         public void SetBaseClasses()
