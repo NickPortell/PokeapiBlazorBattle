@@ -1,11 +1,16 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">PokemonBattle.Server</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+﻿@inject IJSRuntime JS
+
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <button class="navbar-toggler" @onclick=@(args => ToggleNavMenu(Menu, args))>
         <span class="navbar-toggler-icon"></span>
     </button>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+<div @ref=Menu>
+    <div class="top-row pl-4 navbar navbar-dark">
+        <a class="navbar-brand" href="">PokemonBattle.Server</a>
+    </div>
     <ul class="nav flex-column">
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
@@ -31,12 +36,15 @@
 </div>
 
 @code {
-    private bool collapseNavMenu = true;
+    ElementReference Menu;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
+    private void ToggleNavMenu(ElementReference menu, MouseEventArgs args)
     {
-        collapseNavMenu = !collapseNavMenu;
+        JS.InvokeVoidAsync("ToggleNavMenu", menu);
+    }
+
+    private void ShowSomething()
+    {
+        JS.InvokeVoidAsync("showPrompt");
     }
 }
