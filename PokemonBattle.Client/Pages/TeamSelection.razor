@@ -1,0 +1,52 @@
+﻿@page "/teamselection"
+@inherits PokemonBattle.Client.Components.Classes.Shared.PokemonDataBase
+
+
+<h3>TeamSelection</h3>
+
+@if (isInitialized == false)
+{
+    <p>Loading ...</p>
+}
+else
+{
+    <div class=@PokemonTeamContainerBaseClass>
+        @for (int i = 0; i < PokemonTeam.Count; i++)
+        {
+            <div id=@(PokemonTeam[i] != null ? PokemonTeam[i].Id + "-" + i: "empty-slot-" + i)
+                 class=@PokemonTeamSlotClasses[i]
+                 @ref=@PokemonTeamSlotElements["weedle"]
+                 @onclick=@(args => ClickPokemon(PokemonTeamSlotElements["weedle"],args))>
+                <div class=@PokemonTeamImageBaseClass>
+                    <img name=@(PokemonTeam[i] != null ? PokemonTeam[i].Name : "empty-pokemon")
+                         class=@(PokemonTeam[i] != null ? PokemonTeam[i].Name + "-img" : EmptyPokemonBaseClass)
+                         src=@(PokemonTeam[i] != null ? PokemonTeam[i].Sprites.Front_Default : @DefaultTeamPokemonImgUrl)
+                         alt=@(PokemonTeam[i] != null ? PokemonTeam[i].Name : "EmptyPokeball") 
+                        @onclick=@(args => ClickPokemon(PokemonTeamSlotElements["weedle"],args))>
+                </div>
+                <div class=@PokemonTeamNameBaseClass>
+                    <p>@(PokemonTeam[i] != null ? PokemonTeam[i].Name.ToUpper() : "Empty")</p>
+                </div>
+            </div>
+        }
+    </div>
+    <EditForm Model="@PokemonTeam">
+        <label class="pokemon-selection-title" for="searchable-pokedataList">
+            Pokemon Selection
+        </label>
+        <InputSelect id="searchable-pokedataList" @bind-Value="@SelectedPokeId">
+            <option value="Default">Select one..</option>
+            @foreach (var pokemon in PokemonDataList)
+                {
+                <option value="@pokemon.Id.ToString()">@pokemon.Name.ToUpper()</option>
+                }
+        </InputSelect>
+        <img src="@(String.IsNullOrEmpty(SelectedPokeId) || SelectedPokeId == "Default" ? DefaultPokemonImg : PokemonDataList.FirstOrDefault(p => p.Id.ToString() == SelectedPokeId).Sprites.Front_Default)" />
+    </EditForm>
+
+}
+
+
+@code {
+
+}
