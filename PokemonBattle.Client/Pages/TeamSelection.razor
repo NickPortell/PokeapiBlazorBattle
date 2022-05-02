@@ -11,24 +11,12 @@
 else
 {
     <div class=@PokemonTeamContainerBaseClass>
-        @for (int i = 0; i < PokemonTeam.Count; i++)
-        {
-            <div id=@(PokemonTeam[i] != null ? PokemonTeam[i].Id + "-" + i: "empty-slot-" + i)
-                 class=@PokemonTeamSlotClasses[i]
-                 @ref=@PokemonTeamSlotElements["weedle"]
-                 @onclick=@(args => ClickPokemon(PokemonTeamSlotElements["weedle"],args))>
-                <div class=@PokemonTeamImageBaseClass>
-                    <img name=@(PokemonTeam[i] != null ? PokemonTeam[i].Name : "empty-pokemon")
-                         class=@(PokemonTeam[i] != null ? PokemonTeam[i].Name + "-img" : EmptyPokemonBaseClass)
-                         src=@(PokemonTeam[i] != null ? PokemonTeam[i].Sprites.Front_Default : @DefaultTeamPokemonImgUrl)
-                         alt=@(PokemonTeam[i] != null ? PokemonTeam[i].Name : "EmptyPokeball") 
-                        @onclick=@(args => ClickPokemon(PokemonTeamSlotElements["weedle"],args))>
-                </div>
-                <div class=@PokemonTeamNameBaseClass>
-                    <p>@(PokemonTeam[i] != null ? PokemonTeam[i].Name.ToUpper() : "Empty")</p>
-                </div>
-            </div>
-        }
+        <PokemonTeamSlot Pokemon=@PokemonTeam[0] Class=@PokemonTeamSlotClasses[0] SlotIndex=0 />
+        <PokemonTeamSlot Pokemon=@PokemonTeam[1] Class=@PokemonTeamSlotClasses[1] SlotIndex=1 />
+        <PokemonTeamSlot Pokemon=@PokemonTeam[2] Class=@PokemonTeamSlotClasses[2] SlotIndex=2 />
+        <PokemonTeamSlot Pokemon=@PokemonTeam[3] Class=@PokemonTeamSlotClasses[3] SlotIndex=3 />
+        <PokemonTeamSlot Pokemon=@PokemonTeam[4] Class=@PokemonTeamSlotClasses[4] SlotIndex=4 />
+        <PokemonTeamSlot Pokemon=@PokemonTeam[5] Class=@PokemonTeamSlotClasses[5] SlotIndex=5 />
     </div>
     <EditForm Model="@PokemonTeam">
         <label class="pokemon-selection-title" for="searchable-pokedataList">

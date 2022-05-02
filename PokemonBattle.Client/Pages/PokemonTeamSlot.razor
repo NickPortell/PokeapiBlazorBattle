@@ -1,0 +1,32 @@
+﻿@inherits PokemonBattle.Client.Components.Classes.Shared.PokemonDataBase
+@using PokemonBattle.Models.V1.Pokemon;
+
+
+<div id=@(Pokemon != null ? Pokemon.Id + "-" + SlotIndex : "empty-slot-" + SlotIndex)
+     class=@Class
+     @ref=@Slot
+     @onclick=@(args => ClickPokemon(Slot, args))>
+    <div class=@PokemonTeamImageBaseClass>
+        <img name=@(Pokemon != null ? Pokemon.Name : "empty-pokemon")
+             class=@(Pokemon != null ? Pokemon.Name + "-img" : EmptyPokemonBaseClass)
+             src=@(Pokemon != null ? Pokemon.Sprites.Front_Default : @DefaultTeamPokemonImgUrl)
+             alt=@(Pokemon != null ? Pokemon.Name : "EmptyPokeball") />
+    </div>
+    <div class=@PokemonTeamNameBaseClass>
+        <p>@(Pokemon != null ? Pokemon.Name.ToUpper() : "Empty")</p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public PokemonData Pokemon { get; set; }
+
+    [Parameter]
+    public string Class { get; set; }
+
+    [Parameter]
+    public int SlotIndex { get; set; }
+
+
+    public ElementReference Slot;
+}
