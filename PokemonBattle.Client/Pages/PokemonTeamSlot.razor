@@ -2,18 +2,18 @@
 @using PokemonBattle.Models.V1.Pokemon;
 
 
-<div id=@(Pokemon != null ? Pokemon.Id + "-" + SlotIndex : "empty-slot-" + SlotIndex)
+<div id=@SlotId
      class=@Class
      @ref=@Slot
-     @onclick=@(args => ClickPokemon(Slot, args))>
+     @onclick=@(args => ClickPokemon(Slot, SlotId, args))>
     <div class=@PokemonTeamImageBaseClass>
-        <img name=@(Pokemon != null ? Pokemon.Name : "empty-pokemon")
-             class=@(Pokemon != null ? Pokemon.Name + "-img" : EmptyPokemonBaseClass)
-             src=@(Pokemon != null ? Pokemon.Sprites.Front_Default : @DefaultTeamPokemonImgUrl)
-             alt=@(Pokemon != null ? Pokemon.Name : "EmptyPokeball") />
+        <img name=@ImgName
+             class=@ImgClass
+             src=@ImgSrc
+             alt=@ImgAlt />
     </div>
     <div class=@PokemonTeamNameBaseClass>
-        <p>@(Pokemon != null ? Pokemon.Name.ToUpper() : "Empty")</p>
+        <p>@DisplayName</p>
     </div>
 </div>
 
@@ -27,6 +27,17 @@
     [Parameter]
     public int SlotIndex { get; set; }
 
+    private string SlotId => Pokemon != null ? Pokemon.Id + "-" + SlotIndex : "empty-slot-" + SlotIndex;
+
+    private string ImgName => Pokemon != null ? Pokemon.Name : "empty-pokemon";
+
+    private string ImgClass => Pokemon != null ? Pokemon.Name + "-img" : EmptyPokemonBaseClass;
+
+    private string ImgSrc => Pokemon != null ? Pokemon.Sprites.Front_Default : @DefaultTeamPokemonImgUrl;
+
+    private string ImgAlt => Pokemon != null ? Pokemon.Name : "EmptyPokeball";
+
+    private string DisplayName => Pokemon != null ? Pokemon.Name.ToUpper() : "Empty";
 
     public ElementReference Slot;
 }
