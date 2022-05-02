@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Components;
-using PokemonBattle.Infrastructure.Repositories;
-using PokemonBattle.Models.V1.Pokemon;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Blazored.LocalStorage;
-using System.IO;
+﻿using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
+using PokemonBattle.Infrastructure.Repositories;
+using PokemonBattle.Models.V1.Pokemon;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PokemonBattle.Server.Components.Classes.Shared
 {
