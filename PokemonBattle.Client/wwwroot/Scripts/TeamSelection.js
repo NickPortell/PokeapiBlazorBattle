@@ -11,7 +11,3 @@ function deselectOtherTeamSlots(pokemonTeamSlotBaseClass, clickedClass) {
         }
     });
 }
-
-function setSelectedPokemon(slotId) {
-
-}
