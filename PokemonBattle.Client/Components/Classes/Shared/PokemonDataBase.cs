@@ -5,6 +5,7 @@ using Microsoft.JSInterop;
 using PokemonBattle.Infrastructure.Repositories;
 using PokemonBattle.Models.V1.Pokemon;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PokemonBattle.Client.Components.Classes.Shared
@@ -19,9 +20,13 @@ namespace PokemonBattle.Client.Components.Classes.Shared
 
         public List<PokemonData> PokemonTeam { get; set; } = new List<PokemonData>();
 
+        public PokemonData SelectedPokemon { get; set; }
+
         public string SelectedPokeSlotId { get; set; }
 
         public bool isInitialized;
+
+        public bool DisplaySideTray;
 
         public string PokemonTeamContainerBaseClass { get; set; }
         public string PokemonTeamSlotBaseClass { get; set; }
@@ -57,6 +62,7 @@ namespace PokemonBattle.Client.Components.Classes.Shared
             SetPokemonTeamSlotClasses();
             JSModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Scripts/TeamSelection.js");
             isInitialized = Pokedex != null && PokemonDataList != null && PokemonTeam != null;
+            DisplaySideTray = SelectedPokemon != null;
         }
 
         public void SetBaseClasses()
@@ -158,11 +164,21 @@ namespace PokemonBattle.Client.Components.Classes.Shared
         }
 
         public async void ClickPokemon(ElementReference slot, string slotId, MouseEventArgs args)
-        {
+        {            
+            await JSRuntime.InvokeVoidAsync("deselectOtherTeamSlots", PokemonTeamSlotBaseClass, ClickedClass);
+            await JSRuntime.InvokeVoidAsync("clickPokemonTeamSlot", slot, ClickedClass);
             SelectedPokeSlotId = slotId;
-            //SelectedPokemonSlot = await JSRuntime.InvokeAsync<ElementReference>("setSelectedPokemon", slotId);
-            JSRuntime.InvokeVoidAsync("deselectOtherTeamSlots", PokemonTeamSlotBaseClass, ClickedClass);
-            JSRuntime.InvokeVoidAsync("clickPokemonTeamSlot", slot, ClickedClass);
+            SelectedPokemon = GetPokemonDataBySlotId(SelectedPokeSlotId);
+        }
+
+        private int GetPokemonIdFromSlotId(string slotId)
+        {
+            return int.Parse(slotId.Split('-')[0]);
+        }
+
+        public PokemonData GetPokemonDataBySlotId(string slotId)
+        {
+            return string.IsNullOrEmpty(slotId) || slotId.Contains("empty-slot") ? null : PokemonDataList.FirstOrDefault(p => p.Id == GetPokemonIdFromSlotId(slotId));
         }
     }
 }
