@@ -18,6 +18,7 @@ else
         <PokemonTeamSlot Pokemon=@PokemonTeam[4] Class=@PokemonTeamSlotClasses[4] SlotIndex=4 />
         <PokemonTeamSlot Pokemon=@PokemonTeam[5] Class=@PokemonTeamSlotClasses[5] SlotIndex=5 />
     </div>
+    <PokemonSideTray Display=DisplaySideTray/>
     <EditForm Model="@PokemonTeam">
         <label class="pokemon-selection-title" for="searchable-pokedataList">
             Pokemon Selection
@@ -25,16 +26,16 @@ else
         <InputSelect id="searchable-pokedataList" @bind-Value="@SelectedPokeSlotId">
             <option value="Default">Select one..</option>
             @foreach (var pokemon in PokemonDataList)
-                {
-                <option value="@pokemon.Id.ToString()">@pokemon.Name.ToUpper()</option>
-                }
-        </InputSelect>
-        <img src="@(String.IsNullOrEmpty(SelectedPokeSlotId) || SelectedPokeSlotId == "Default" ? DefaultPokemonImg : PokemonDataList.FirstOrDefault(p => p.Id.ToString() == SelectedPokeSlotId).Sprites.Front_Default)" />
-    </EditForm>
+            {
+            <option value="@pokemon.Id.ToString()">@pokemon.Name.ToUpper()</option>
+            }
+    </InputSelect>
+    <img src="@(String.IsNullOrEmpty(SelectedPokeSlotId) || SelectedPokeSlotId == "Default" ? DefaultPokemonImg : PokemonDataList.FirstOrDefault(p => p.Id.ToString() == SelectedPokeSlotId).Sprites.Front_Default)" />
+</EditForm>
 
 }
 
 
 @code {
-
+    
 }
