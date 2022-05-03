@@ -50,6 +50,7 @@ namespace PokemonBattle.Server
             services.AddSignalR(e => {
                 e.MaximumReceiveMessageSize = 102400000;
             });
+            services.AddScoped<StateContainer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
