@@ -1,27 +1,16 @@
-﻿@inherits PokemonBattle.Client.Components.Classes.Shared.PokemonDataBase
+﻿@inherits PokemonBattle.Client.Components.Classes.Shared.PokemonSideTray
 @using PokemonBattle.Models.V1.Pokemon;
 
 
-<div class="pokemon-spotlight-sidetray">
+<div class=@ImgContainerClass>
     <img name=@ImgName
          class=@ImgClass
          src=@ImgSrc
          alt=@ImgAlt 
-         hidden=@(Display ? "" : "hidden")/>
+         hidden=@(DisplaySideTray ? null : "hidden")/>
 </div>
 
 @code {
-    [Parameter]
-    public bool Display { get; set; }
-
-    private string ImgSrc => SelectedPokemon != null ? SelectedPokemon.Sprites.Front_Default : @DefaultTeamPokemonImgUrl;
-
-    private string ImgName => SelectedPokemon != null ? SelectedPokemon.Name : "empty-pokemon";
-
-    private string ImgClass => SelectedPokemon != null ? SelectedPokemon.Name + "-img" : EmptyPokemonBaseClass;
-
-    private string ImgAlt => SelectedPokemon != null ? SelectedPokemon.Name : "EmptyPokeball";
-
-    private string DisplayName => SelectedPokemon != null ? SelectedPokemon.Name.ToUpper() : "Empty";
+    
 
 }

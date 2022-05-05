@@ -1,11 +1,9 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using PokemonBattle.Infrastructure.Repositories;
 using PokemonBattle.Models.V1.Pokemon;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PokemonBattle.Client.Components.Classes.Shared
@@ -23,8 +21,6 @@ namespace PokemonBattle.Client.Components.Classes.Shared
         public PokemonData SelectedPokemon { get; set; }
 
         public bool isInitialized;
-
-        public bool DisplaySideTray;
 
         public string PokemonTeamContainerBaseClass { get; set; }
         public string PokemonTeamSlotBaseClass { get; set; }
@@ -49,7 +45,11 @@ namespace PokemonBattle.Client.Components.Classes.Shared
             PokemonTeam = GetTableData();
             SetBaseClasses();
             isInitialized = Pokedex != null && PokemonDataList != null && PokemonTeam != null;
-            DisplaySideTray = SelectedPokemon != null;
+        }
+
+        public void SelectPokemon(PokemonData pokemon)
+        {
+            SelectedPokemon = pokemon;
         }
 
         public void SetBaseClasses()

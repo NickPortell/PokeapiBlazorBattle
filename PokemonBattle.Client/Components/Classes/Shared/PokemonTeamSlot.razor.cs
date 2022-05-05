@@ -16,6 +16,8 @@ namespace PokemonBattle.Client.Components.Classes.Shared
         [Parameter]
         public int SlotIndex { get; set; }
 
+        [Parameter]
+        public EventCallback<PokemonData> SelectPokemon { get; set; }
 
         public string ClickedClass { get; set; }
 
@@ -70,12 +72,12 @@ namespace PokemonBattle.Client.Components.Classes.Shared
                    || slotId.Contains("empty-slot")
                    ? null : PokemonDataList.FirstOrDefault(p => p.Id == GetPokemonIdFromSlotId(slotId));
         }
-
-        public async void ClickPokemon(ElementReference slot, string slotId, MouseEventArgs args)
+        
+        public async void ClickPokemon(ElementReference slot, MouseEventArgs args)
         {
             await JSRuntime.InvokeVoidAsync("deselectOtherTeamSlots", PokemonTeamSlotBaseClass, ClickedClass);
             await JSRuntime.InvokeVoidAsync("clickPokemonTeamSlot", slot, ClickedClass);
-            SelectedPokemon = GetPokemonDataBySlotId(slotId);
+            await SelectPokemon.InvokeAsync(Pokemon);
         }
     }
 }

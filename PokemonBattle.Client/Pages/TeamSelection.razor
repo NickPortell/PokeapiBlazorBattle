@@ -11,18 +11,18 @@
 else
 {
     <div class=@PokemonTeamContainerBaseClass>
-        <PokemonTeamSlot Pokemon=@PokemonTeam[0]  SlotIndex=0 />
-        <PokemonTeamSlot Pokemon=@PokemonTeam[1]  SlotIndex=1 />
-        <PokemonTeamSlot Pokemon=@PokemonTeam[2]  SlotIndex=2 />
-        <PokemonTeamSlot Pokemon=@PokemonTeam[3]  SlotIndex=3 />
-        <PokemonTeamSlot Pokemon=@PokemonTeam[4]  SlotIndex=4 />
-        <PokemonTeamSlot Pokemon=@PokemonTeam[5]  SlotIndex=5 />
+        <PokemonTeamSlot Pokemon=PokemonTeam[0] SlotIndex=0 SelectPokemon=SelectPokemon />
+        <PokemonTeamSlot Pokemon=PokemonTeam[1] SlotIndex=1 SelectPokemon=SelectPokemon />
+        <PokemonTeamSlot Pokemon=PokemonTeam[2] SlotIndex=2 SelectPokemon=SelectPokemon />
+        <PokemonTeamSlot Pokemon=PokemonTeam[3] SlotIndex=3 SelectPokemon=SelectPokemon />
+        <PokemonTeamSlot Pokemon=PokemonTeam[4] SlotIndex=4 SelectPokemon=SelectPokemon />
+        <PokemonTeamSlot Pokemon=PokemonTeam[5] SlotIndex=5 SelectPokemon=SelectPokemon />
     </div>
-    <PokemonSideTray Display=DisplaySideTray/>
-    <PokemonSelectionForm/>
+    <PokemonSideTray Pokemon=SelectedPokemon />
+    <PokemonSelectionForm />
 }
 
 
 @code {
-    
+
 }
