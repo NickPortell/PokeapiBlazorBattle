@@ -22,8 +22,6 @@ namespace PokemonBattle.Client.Components.Classes.Shared
 
         public PokemonData SelectedPokemon { get; set; }
 
-        public string SelectedPokeSlotId { get; set; }
-
         public bool isInitialized;
 
         public bool DisplaySideTray;
@@ -34,17 +32,8 @@ namespace PokemonBattle.Client.Components.Classes.Shared
         public string PokemonTeamNameBaseClass { get; set; }
         public string EmptyPokemonBaseClass { get; set; }
 
-        public string ClickedClass = "Clicked";
-
-        public List<string> PokemonTeamSlotClasses = new List<string>();
-        public Dictionary<string, ElementReference> PokemonTeamSlotElements = new Dictionary<string, ElementReference>();
-
-        public ElementReference SelectedPokemonSlot { get; set; }
-
         [Inject]
-        private IJSRuntime JSRuntime { get; set; }
-
-        private IJSObjectReference JSModule;
+        public IJSRuntime JSRuntime { get; set; }
 
         [Inject]
         public ILocalStorageService LocalStorage { get; set; }
@@ -59,8 +48,6 @@ namespace PokemonBattle.Client.Components.Classes.Shared
             PokemonDataList = await GetPokemonDataList();
             PokemonTeam = GetTableData();
             SetBaseClasses();
-            SetPokemonTeamSlotClasses();
-            JSModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Scripts/TeamSelection.js");
             isInitialized = Pokedex != null && PokemonDataList != null && PokemonTeam != null;
             DisplaySideTray = SelectedPokemon != null;
         }
@@ -73,14 +60,7 @@ namespace PokemonBattle.Client.Components.Classes.Shared
             PokemonTeamNameBaseClass = "pokemon-team-name";
             EmptyPokemonBaseClass = "empty-pokeball";
         }
-
-        public void SetPokemonTeamSlotClasses()
-        {
-            for (int i = 0; i < PokemonTeam.Count; i++)
-            {
-                PokemonTeamSlotClasses.Add(PokemonTeamSlotBaseClass);
-            }
-        }
+ 
 
         public async Task<PokemonCollection> GetPokemonCollection()
         {
@@ -161,24 +141,6 @@ namespace PokemonBattle.Client.Components.Classes.Shared
                 null
             };
             return pokeDataList;
-        }
-
-        public async void ClickPokemon(ElementReference slot, string slotId, MouseEventArgs args)
-        {            
-            await JSRuntime.InvokeVoidAsync("deselectOtherTeamSlots", PokemonTeamSlotBaseClass, ClickedClass);
-            await JSRuntime.InvokeVoidAsync("clickPokemonTeamSlot", slot, ClickedClass);
-            SelectedPokeSlotId = slotId;
-            SelectedPokemon = GetPokemonDataBySlotId(SelectedPokeSlotId);
-        }
-
-        private int GetPokemonIdFromSlotId(string slotId)
-        {
-            return int.Parse(slotId.Split('-')[0]);
-        }
-
-        public PokemonData GetPokemonDataBySlotId(string slotId)
-        {
-            return string.IsNullOrEmpty(slotId) || slotId.Contains("empty-slot") ? null : PokemonDataList.FirstOrDefault(p => p.Id == GetPokemonIdFromSlotId(slotId));
         }
     }
 }

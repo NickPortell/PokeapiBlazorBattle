@@ -6,33 +6,20 @@
 
 @if (isInitialized == false)
 {
-    <p>Loading ...</p>
+    <p>Loading...</p>
 }
 else
 {
     <div class=@PokemonTeamContainerBaseClass>
-        <PokemonTeamSlot Pokemon=@PokemonTeam[0] Class=@PokemonTeamSlotClasses[0] SlotIndex=0 />
-        <PokemonTeamSlot Pokemon=@PokemonTeam[1] Class=@PokemonTeamSlotClasses[1] SlotIndex=1 />
-        <PokemonTeamSlot Pokemon=@PokemonTeam[2] Class=@PokemonTeamSlotClasses[2] SlotIndex=2 />
-        <PokemonTeamSlot Pokemon=@PokemonTeam[3] Class=@PokemonTeamSlotClasses[3] SlotIndex=3 />
-        <PokemonTeamSlot Pokemon=@PokemonTeam[4] Class=@PokemonTeamSlotClasses[4] SlotIndex=4 />
-        <PokemonTeamSlot Pokemon=@PokemonTeam[5] Class=@PokemonTeamSlotClasses[5] SlotIndex=5 />
+        <PokemonTeamSlot Pokemon=@PokemonTeam[0]  SlotIndex=0 />
+        <PokemonTeamSlot Pokemon=@PokemonTeam[1]  SlotIndex=1 />
+        <PokemonTeamSlot Pokemon=@PokemonTeam[2]  SlotIndex=2 />
+        <PokemonTeamSlot Pokemon=@PokemonTeam[3]  SlotIndex=3 />
+        <PokemonTeamSlot Pokemon=@PokemonTeam[4]  SlotIndex=4 />
+        <PokemonTeamSlot Pokemon=@PokemonTeam[5]  SlotIndex=5 />
     </div>
     <PokemonSideTray Display=DisplaySideTray/>
-    <EditForm Model="@PokemonTeam">
-        <label class="pokemon-selection-title" for="searchable-pokedataList">
-            Pokemon Selection
-        </label>
-        <InputSelect id="searchable-pokedataList" @bind-Value="@SelectedPokeSlotId">
-            <option value="Default">Select one..</option>
-            @foreach (var pokemon in PokemonDataList)
-            {
-            <option value="@pokemon.Id.ToString()">@pokemon.Name.ToUpper()</option>
-            }
-    </InputSelect>
-    <img src="@(String.IsNullOrEmpty(SelectedPokeSlotId) || SelectedPokeSlotId == "Default" ? DefaultPokemonImg : PokemonDataList.FirstOrDefault(p => p.Id.ToString() == SelectedPokeSlotId).Sprites.Front_Default)" />
-</EditForm>
-
+    <PokemonSelectionForm/>
 }
 
 
