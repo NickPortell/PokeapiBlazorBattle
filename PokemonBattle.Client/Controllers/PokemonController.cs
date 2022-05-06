@@ -5,11 +5,10 @@ using PokemonBattle.Models.V1.Pokemon;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace PokemonBattle.Client.Controllers
 {
-    public class PokemonController : Controller
+    public class PokemonController
     {
         private IPokemonOrchestrator PokemonOrchestrator;
 
