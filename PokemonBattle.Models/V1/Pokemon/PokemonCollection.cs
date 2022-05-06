@@ -7,9 +7,11 @@ namespace PokemonBattle.Models.V1.Pokemon
 {
     public class PokemonCollection
     {
-        public int Count { get; set; }
-        public string Next { get; set; }
-        public string Previous { get; set; }
-        public Pokemon[] Results { get; set; }
+        public List<PokemonData> PokemonList { get; set; }
+
+        public PokemonCollection(List<PokemonData> pokemonList)
+        {
+            PokemonList = pokemonList;
+        }
     }
 }
