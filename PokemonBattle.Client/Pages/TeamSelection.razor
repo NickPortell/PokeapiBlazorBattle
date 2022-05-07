@@ -1,5 +1,5 @@
 ﻿@page "/teamselection"
-@inherits PokemonBattle.Client.Components.Classes.Shared.PokemonDataBase
+@inherits PokemonBattle.Client.Components.Classes.Shared.TeamSelection
 
 
 <h3>TeamSelection</h3>
@@ -19,7 +19,7 @@ else
         <PokemonTeamSlot Pokemon=PokemonTeam[5] SlotIndex=5 SelectPokemon=SelectPokemon />
     </div>
     <PokemonSideTray Pokemon=SelectedPokemon />
-    <PokemonSelectionForm />
+    <PokemonSelectionForm PokemonTeamData=PokemonTeam PokemonList=Pokedex.PokemonList/>
 }
 
 

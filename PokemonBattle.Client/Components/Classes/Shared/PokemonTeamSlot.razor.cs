@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PokemonBattle.Client.Components.Classes.Shared
 {
-    public class PokemonTeamSlot : PokemonDataBase
+    public class PokemonTeamSlot : ComponentBase
     {
         [Parameter]
         public PokemonData Pokemon { get; set; }
@@ -41,18 +41,26 @@ namespace PokemonBattle.Client.Components.Classes.Shared
 
         public string DisplayName { get; set; }
 
+        public string DefaultTeamPokemonImgUrl = "Content\\PokeballEmptyOutline.png";
 
         public ElementReference Slot;
 
         public Dictionary<string, ElementReference> PokemonTeamSlotElements => new Dictionary<string, ElementReference>();
 
+        public string PokemonTeamSlotBaseClass => "pokemon-team-slot";
+        public string PokemonTeamImageBaseClass => "pokemon-team-img";
+        public string PokemonTeamNameBaseClass => "pokemon-team-name";
+        public string EmptyPokemonBaseClass => "empty-pokeball";
 
-        protected override async Task OnParametersSetAsync()
+        [Inject]
+        public IJSRuntime JSRuntime { get; set; }
+
+        protected override async Task OnInitializedAsync()
         {
             ClickedClass = "Clicked";
             SlotClass = PokemonTeamSlotBaseClass;
             SlotId = Pokemon != null ? Pokemon.Id + "-" + SlotIndex : "empty-slot-" + SlotIndex;
-            ImgContainerClass =  PokemonTeamImageBaseClass;
+            ImgContainerClass = PokemonTeamImageBaseClass;
             ImgName = Pokemon != null ? Pokemon.Name : "empty-pokemon";
             ImgClass = Pokemon != null ? Pokemon.Name + "-img" : EmptyPokemonBaseClass;
             ImgSrc = Pokemon != null ? Pokemon.Sprites.Front_Default : @DefaultTeamPokemonImgUrl;
@@ -61,18 +69,6 @@ namespace PokemonBattle.Client.Components.Classes.Shared
             DisplayName = Pokemon != null ? Pokemon.Name.ToUpper() : "Empty";
         }
 
-        private int GetPokemonIdFromSlotId(string slotId)
-        {
-            return int.Parse(slotId.Split('-')[0]);
-        }
-
-        public PokemonData GetPokemonDataBySlotId(string slotId)
-        {
-            return string.IsNullOrEmpty(slotId)
-                   || slotId.Contains("empty-slot")
-                   ? null : PokemonDataList.FirstOrDefault(p => p.Id == GetPokemonIdFromSlotId(slotId));
-        }
-        
         public async void ClickPokemon(ElementReference slot, MouseEventArgs args)
         {
             await JSRuntime.InvokeVoidAsync("deselectOtherTeamSlots", PokemonTeamSlotBaseClass, ClickedClass);
