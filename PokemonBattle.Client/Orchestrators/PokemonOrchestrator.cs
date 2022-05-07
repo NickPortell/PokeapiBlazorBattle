@@ -61,8 +61,12 @@ namespace PokemonBattle.Client.Orchestrators
             try
             {
                 var response = await PokemonRepository.GetPokemonCollection(request);
-                var pokemonDataList = response.Results.Select(r => MapToPokemonData(PokemonRepository.GetPokemonByName(new GetPokemonRequestDto { PokemonName = r.Name }).Result)).ToList();
-                var collection = new PokemonCollection(pokemonDataList);
+                var pokemonDataList = await Task.WhenAll(response.Results.Select(async r => 
+                {
+                    var response = await PokemonRepository.GetPokemonByName(new GetPokemonRequestDto { PokemonName = r.Name });
+                    return MapToPokemonData(response);
+                }));
+                var collection = new PokemonCollection(pokemonDataList.ToList());
                 return collection;
             }
             catch (Exception ex)
@@ -87,6 +91,7 @@ namespace PokemonBattle.Client.Orchestrators
                 Is_Default = response.Is_Default,
                 Location_Area_Encounters = response.Location_Area_Encounters,
                 Moves = response.Moves,
+                Name = response.Name,
                 Order = response.Order,
                 Past_Types = response.Past_Types,
                 Species = response.Species,
