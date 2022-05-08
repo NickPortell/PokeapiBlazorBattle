@@ -118,17 +118,26 @@ namespace PokemonBattle.Client.Components.Classes.Shared
 
         public void ClickTeamSlot(int slotIndex)
         {
-            ClearClickedFromClassList();
+            ClearClickedFromClassList(slotIndex);
+
             List<string> classList = PokemonTeamSlotClasses[slotIndex].Split(' ').ToList();
-            classList.Add(ClickedClass);
+            if (!classList.Contains(ClickedClass))
+            {
+                classList.Add(ClickedClass);
+            }
+            else
+            {
+                classList.Remove(ClickedClass);
+                SelectedPokemon = null;
+            }
             PokemonTeamSlotClasses[slotIndex] = string.Join(' ', classList);
         }
 
-        private void ClearClickedFromClassList()
+        private void ClearClickedFromClassList(int slotIndexToAvoid)
         {
             for (int i = 0; i < PokemonTeamSlotClasses.Count; i++)
             {
-                if (PokemonTeamSlotClasses[i].Contains(ClickedClass))
+                if (PokemonTeamSlotClasses[i].Contains(ClickedClass) && i != slotIndexToAvoid)
                 {
                     List<string> classList = PokemonTeamSlotClasses[i].Split(' ').ToList();
                     classList.Remove(ClickedClass);

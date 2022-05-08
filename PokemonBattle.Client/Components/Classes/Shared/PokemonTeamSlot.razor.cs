@@ -18,7 +18,7 @@ namespace PokemonBattle.Client.Components.Classes.Shared
 
         [Parameter]
         public EventCallback<int> ClickTeamSlot { get; set; }
-        
+
         [Parameter]
         public EventCallback<PokemonData> SelectPokemon { get; set; }
 
@@ -74,8 +74,8 @@ namespace PokemonBattle.Client.Components.Classes.Shared
 
         public async void ClickPokemon(MouseEventArgs args)
         {
-            await ClickTeamSlot.InvokeAsync(SlotIndex);
             await SelectPokemon.InvokeAsync(Pokemon);
+            await ClickTeamSlot.InvokeAsync(SlotIndex);
         }
     }
 }
