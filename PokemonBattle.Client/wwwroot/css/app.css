@@ -121,3 +121,11 @@ a, .btn-link {
 .pokemon-selection-title {
     color: white;
 }
+
+.pokemon-spotlight-sidetray {
+    display: flex;
+    flex-direction: column;
+    width: 18%;
+    margin-left: 66%;
+    position: fixed;
+}
