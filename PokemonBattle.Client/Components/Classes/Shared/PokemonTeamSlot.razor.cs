@@ -17,11 +17,18 @@ namespace PokemonBattle.Client.Components.Classes.Shared
         public int SlotIndex { get; set; }
 
         [Parameter]
+        public EventCallback<int> ClickTeamSlot { get; set; }
+        
+        [Parameter]
         public EventCallback<PokemonData> SelectPokemon { get; set; }
 
-        public string ClickedClass { get; set; }
+        [Parameter]
+        public EventCallback<List<ElementReference>> GetClickedTeamSlotElements { get; set; }
 
+        [Parameter]
+        public EventCallback<KeyValuePair<string, ElementReference>> AddTeamSlotElement { get; set; }
 
+        [Parameter]
         public string SlotClass { get; set; }
 
         public string SlotId { get; set; }
@@ -45,8 +52,6 @@ namespace PokemonBattle.Client.Components.Classes.Shared
 
         public ElementReference Slot;
 
-        public Dictionary<string, ElementReference> PokemonTeamSlotElements => new Dictionary<string, ElementReference>();
-
         public string PokemonTeamSlotBaseClass => "pokemon-team-slot";
         public string PokemonTeamImageBaseClass => "pokemon-team-img";
         public string PokemonTeamNameBaseClass => "pokemon-team-name";
@@ -57,8 +62,6 @@ namespace PokemonBattle.Client.Components.Classes.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            ClickedClass = "Clicked";
-            SlotClass = PokemonTeamSlotBaseClass;
             SlotId = Pokemon != null ? Pokemon.Id + "-" + SlotIndex : "empty-slot-" + SlotIndex;
             ImgContainerClass = PokemonTeamImageBaseClass;
             ImgName = Pokemon != null ? Pokemon.Name : "empty-pokemon";
@@ -69,10 +72,9 @@ namespace PokemonBattle.Client.Components.Classes.Shared
             DisplayName = Pokemon != null ? Pokemon.Name.ToUpper() : "Empty";
         }
 
-        public async void ClickPokemon(ElementReference slot, MouseEventArgs args)
+        public async void ClickPokemon(MouseEventArgs args)
         {
-            await JSRuntime.InvokeVoidAsync("deselectOtherTeamSlots", PokemonTeamSlotBaseClass, ClickedClass);
-            await JSRuntime.InvokeVoidAsync("clickPokemonTeamSlot", slot, ClickedClass);
+            await ClickTeamSlot.InvokeAsync(SlotIndex);
             await SelectPokemon.InvokeAsync(Pokemon);
         }
     }

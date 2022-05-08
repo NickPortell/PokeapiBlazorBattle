@@ -5,6 +5,7 @@ using PokemonBattle.Client.Controllers;
 using PokemonBattle.Dto.Request;
 using PokemonBattle.Models.V1.Pokemon;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PokemonBattle.Client.Components.Classes.Shared
@@ -12,9 +13,17 @@ namespace PokemonBattle.Client.Components.Classes.Shared
     public class TeamSelection : ComponentBase
     {
         public PokemonData SelectedPokemon { get; set; }
+
         public PokemonCollection Pokedex { get; set; }
 
         public List<PokemonData> PokemonTeam { get; set; }
+
+        public Dictionary<string, ElementReference> PokemonTeamSlotElements { get; set; }
+
+        public List<string> PokemonTeamSlotClasses { get; set; }
+
+        public string ClickedClass { get; set; }
+
 
         public bool isInitialized;
 
@@ -43,6 +52,11 @@ namespace PokemonBattle.Client.Components.Classes.Shared
 
             Pokedex = await GetPokemonCollection(request);
             PokemonTeam = GetSelectedTeam();
+            PokemonTeamSlotElements = PokemonTeamSlotElements == null
+                                      ? new Dictionary<string, ElementReference>()
+                                      : PokemonTeamSlotElements;
+            PokemonTeamSlotClasses = GetTeamSlotClasses();
+            ClickedClass = "Clicked";
             isInitialized = Pokedex != null && PokemonTeam != null;
         }
 
@@ -84,6 +98,43 @@ namespace PokemonBattle.Client.Components.Classes.Shared
                 null
             };
             return pokemonTeam;
+        }
+
+        public List<string> GetTeamSlotClasses()
+        {
+            List<string> teamSlotClasses = new List<string>();
+
+            foreach (var pokemon in PokemonTeam)
+            {
+                teamSlotClasses.Add(SetSlotBaseClass(""));
+            }
+            return teamSlotClasses;
+        }
+
+        private string SetSlotBaseClass(string classList)
+        {
+            return string.IsNullOrEmpty(classList) ? PokemonTeamSlotBaseClass : classList;
+        }
+
+        public void ClickTeamSlot(int slotIndex)
+        {
+            ClearClickedFromClassList();
+            List<string> classList = PokemonTeamSlotClasses[slotIndex].Split(' ').ToList();
+            classList.Add(ClickedClass);
+            PokemonTeamSlotClasses[slotIndex] = string.Join(' ', classList);
+        }
+
+        private void ClearClickedFromClassList()
+        {
+            for (int i = 0; i < PokemonTeamSlotClasses.Count; i++)
+            {
+                if (PokemonTeamSlotClasses[i].Contains(ClickedClass))
+                {
+                    List<string> classList = PokemonTeamSlotClasses[i].Split(' ').ToList();
+                    classList.Remove(ClickedClass);
+                    PokemonTeamSlotClasses[i] = string.Join(' ', classList);
+                }
+            }
         }
     }
 }
