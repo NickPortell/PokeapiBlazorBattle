@@ -11,15 +11,15 @@
 else
 {
     <div class=@PokemonTeamContainerBaseClass>
-        <PokemonTeamSlot Pokemon=PokemonTeam[0] SlotIndex=0 SelectPokemon=SelectPokemon />
-        <PokemonTeamSlot Pokemon=PokemonTeam[1] SlotIndex=1 SelectPokemon=SelectPokemon />
-        <PokemonTeamSlot Pokemon=PokemonTeam[2] SlotIndex=2 SelectPokemon=SelectPokemon />
-        <PokemonTeamSlot Pokemon=PokemonTeam[3] SlotIndex=3 SelectPokemon=SelectPokemon />
-        <PokemonTeamSlot Pokemon=PokemonTeam[4] SlotIndex=4 SelectPokemon=SelectPokemon />
-        <PokemonTeamSlot Pokemon=PokemonTeam[5] SlotIndex=5 SelectPokemon=SelectPokemon />
+        <PokemonTeamSlot SlotClass=@PokemonTeamSlotClasses[0] Pokemon=PokemonTeam[0] SlotIndex=0 ClickTeamSlot=ClickTeamSlot SelectPokemon=SelectPokemon/>
+        <PokemonTeamSlot SlotClass=@PokemonTeamSlotClasses[1] Pokemon=PokemonTeam[1] SlotIndex=1 ClickTeamSlot=ClickTeamSlot SelectPokemon=SelectPokemon/>
+        <PokemonTeamSlot SlotClass=@PokemonTeamSlotClasses[2] Pokemon=PokemonTeam[2] SlotIndex=2 ClickTeamSlot=ClickTeamSlot SelectPokemon=SelectPokemon/>
+        <PokemonTeamSlot SlotClass=@PokemonTeamSlotClasses[3] Pokemon=PokemonTeam[3] SlotIndex=3 ClickTeamSlot=ClickTeamSlot SelectPokemon=SelectPokemon/>
+        <PokemonTeamSlot SlotClass=@PokemonTeamSlotClasses[4] Pokemon=PokemonTeam[4] SlotIndex=4 ClickTeamSlot=ClickTeamSlot SelectPokemon=SelectPokemon/>
+        <PokemonTeamSlot SlotClass=@PokemonTeamSlotClasses[5] Pokemon=PokemonTeam[5] SlotIndex=5 ClickTeamSlot=ClickTeamSlot SelectPokemon=SelectPokemon/>
     </div>
     <PokemonSideTray Pokemon=SelectedPokemon />
-    <PokemonSelectionForm PokemonTeamData=PokemonTeam PokemonList=Pokedex.PokemonList/>
+    <PokemonSelectionForm PokemonTeamData=PokemonTeam PokemonList=Pokedex.PokemonList />
 }
 
 
