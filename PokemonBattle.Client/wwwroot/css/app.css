@@ -125,7 +125,9 @@ a, .btn-link {
 .pokemon-spotlight-sidetray {
     display: flex;
     flex-direction: column;
+    height: 80%;
     width: 18%;
     margin-left: 66%;
     position: fixed;
+    background-color: darkslategray;
 }
