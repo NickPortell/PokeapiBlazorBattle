@@ -127,7 +127,22 @@ a, .btn-link {
     flex-direction: column;
     height: 80%;
     width: 18%;
-    margin-left: 66%;
     position: fixed;
-    background-color: darkslategray;
+    border-color: darkslategray;
+    background-color: darkgrey;
+    transition: all 0.5s ease;
+}
+
+    .pokemon-spotlight-sidetray.closed {
+        right: -100%;
+        opacity: 0;
+    }
+
+    .pokemon-spotlight-sidetray.open {
+        right: 12%;
+        opacity: 1;
+    }
+
+.pokemon-spotlight-sidetray > img {
+    border: solid;
 }

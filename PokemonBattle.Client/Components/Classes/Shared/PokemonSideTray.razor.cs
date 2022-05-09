@@ -29,13 +29,14 @@ namespace PokemonBattle.Client.Components.Classes.Shared
         protected override async Task OnParametersSetAsync()
         {
             SetBaseClasses();
-            ImgContainerClass = "pokemon-spotlight-sidetray";
+            DisplaySideTray = Pokemon != null;
+            ImgContainerClass = DisplaySideTray ? "pokemon-spotlight-sidetray open" : "pokemon-spotlight-sidetray closed";
             ImgSrc = Pokemon != null ? Pokemon.Sprites.Front_Default : @DefaultTeamPokemonImgUrl;
             ImgName = Pokemon != null ? Pokemon.Name : "empty-pokemon";
             ImgClass = Pokemon != null ? Pokemon.Name + "-img" : EmptyPokemonBaseClass;
             ImgAlt = Pokemon != null ? Pokemon.Name : "EmptyPokeball";
             DisplayName = Pokemon != null ? Pokemon.Name.ToUpper() : "Empty";
-            DisplaySideTray = Pokemon != null;
+
         }
 
         public void SetBaseClasses()
