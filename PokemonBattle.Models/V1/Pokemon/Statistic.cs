@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace PokemonBattle.Models.V1.Pokemon
 {
-    public class Stat
+    public class Statistic
     {
-        public int BaseStat { get; set; }
+        public int Base_Stat { get; set; }
         public int Effort { get; set; }
 
-        public StatData Data { get; set; }
+        public StatData Stat { get; set; }
     }
 }

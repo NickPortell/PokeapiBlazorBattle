@@ -7,7 +7,7 @@ namespace PokemonBattle.Models.V1.Pokemon
 {
     public class Game
     {
-        public int Index { get; set; }
+        public int Game_Index { get; set; }
 
         public GameVersion Version { get; set; }
 

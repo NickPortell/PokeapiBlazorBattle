@@ -17,7 +17,7 @@
         public PastType[] Past_Types { get; set; }
         public PokemonSpecies Species { get; set; }
         public PokemonSprites Sprites { get; set; }
-        public Stat[] Stats { get; set; }
+        public Statistic[] Stats { get; set; }
         public PokemonType[] Types { get; set; }
         public int Weight { get; set; }
 
