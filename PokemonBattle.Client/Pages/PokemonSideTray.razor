@@ -1,15 +1,43 @@
 ﻿@inherits PokemonBattle.Client.Components.Classes.Shared.PokemonSideTray
-@using PokemonBattle.Models.V1.Pokemon;
 
 
 <div class=@ImgContainerClass>
     <img name=@ImgName
          class=@ImgClass
          src=@ImgSrc
-         alt=@ImgAlt/>
+         alt=@ImgAlt />
+    <div class="pokemon-stats-breakdown-container">
+        @if (Pokemon != null)
+        {
+            <div>
+                <p>@Pokemon.Stats[0].Stat.Name</p>
+                <p>@Pokemon.Stats[0].Base_Stat</p>
+            </div>
+            <div>
+                <p>@Pokemon.Stats[1].Stat.Name</p>
+                <p>@Pokemon.Stats[1].Base_Stat</p>
+            </div>
+            <div>
+                <p>@Pokemon.Stats[2].Stat.Name</p>
+                <p>@Pokemon.Stats[2].Base_Stat</p>
+            </div>
+            <div>
+                <p>@Pokemon.Stats[3].Stat.Name</p>
+                <p>@Pokemon.Stats[3].Base_Stat</p>
+            </div>
+            <div>
+                <p>@Pokemon.Stats[4].Stat.Name</p>
+                <p>@Pokemon.Stats[4].Base_Stat</p>
+            </div>
+            <div>
+                <p>@Pokemon.Stats[5].Stat.Name</p>
+                <p>@Pokemon.Stats[5].Base_Stat</p>
+            </div>
+        }
+    </div>
 </div>
 
 @code {
-    
+
 
 }
