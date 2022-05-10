@@ -126,11 +126,14 @@ a, .btn-link {
     display: flex;
     flex-direction: column;
     height: 80%;
-    width: 18%;
+    width: 24%;
     position: fixed;
-    border-color: darkslategray;
     background-color: darkgrey;
     transition: all 0.5s ease;
+    border: solid;
+    border-width: thick;
+    border-color: gold;
+    border-radius: 15px;
 }
 
     .pokemon-spotlight-sidetray.closed {
@@ -143,6 +146,30 @@ a, .btn-link {
         opacity: 1;
     }
 
-.pokemon-spotlight-sidetray > img {
+    .pokemon-spotlight-sidetray > img {
+        border: solid;
+        width: auto;
+        height: 37%;
+        margin: 8% auto;
+        background-image: url(../Content/Forest.png);
+        background-size: cover;
+    }
+
+.pokemon-stats-breakdown-container {
     border: solid;
+    width: 83%;
+    margin: 0% auto 8% auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex: auto;
 }
+
+    .pokemon-stats-breakdown-container > div {
+        flex-direction: column;
+        width: 33%;
+        text-align: center;
+    }
+
+        .pokemon-stats-breakdown-container > div > p {
+            margin-bottom: auto;
+        }
