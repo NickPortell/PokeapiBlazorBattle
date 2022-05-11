@@ -9,5 +9,16 @@ namespace PokemonBattle.Client.StateManagement
 
         public List<PokemonData> PokemonTeam { get; set; }
 
+        public List<string> PokemonTeamSlotClasses { get; set; }
+
+
+        public string PokemonTeamContainerBaseClass => "pokemon-team-container";
+        public string PokemonTeamSlotBaseClass => "pokemon-team-slot";
+        public string PokemonTeamImageBaseClass => "pokemon-team-img";
+        public string PokemonTeamNameBaseClass => "pokemon-team-name";
+        public string EmptyPokemonBaseClass => "empty-pokeball";
+
+        public PokemonData SelectedPokemon { get; set; }
+
     }
 }
