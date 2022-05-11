@@ -8,16 +8,16 @@
 }
 else
 {
-    <div class=@state.PokemonTeamContainerBaseClass>
+    <div class=@State.PokemonTeamContainerBaseClass>
         <PokemonTeamSlot SlotIndex=0 ClickTeamSlot=ClickTeamSlot SelectPokemon=SelectPokemon />
         <PokemonTeamSlot SlotIndex=1 ClickTeamSlot=ClickTeamSlot SelectPokemon=SelectPokemon />
         <PokemonTeamSlot SlotIndex=2 ClickTeamSlot=ClickTeamSlot SelectPokemon=SelectPokemon />
         <PokemonTeamSlot SlotIndex=3 ClickTeamSlot=ClickTeamSlot SelectPokemon=SelectPokemon />
         <PokemonTeamSlot SlotIndex=4 ClickTeamSlot=ClickTeamSlot SelectPokemon=SelectPokemon />
         <PokemonTeamSlot SlotIndex=5 ClickTeamSlot=ClickTeamSlot SelectPokemon=SelectPokemon />
-        <PokemonSideTray Pokemon=state.SelectedPokemon />
+        <PokemonSideTray Pokemon=State.SelectedPokemon />
     </div>
-    <PokemonSelectionForm PokemonTeamData=state.PokemonTeam PokemonList=state.Pokedex.PokemonList />
+    <PokemonSelectionForm ChangePokemonSlot=ChangePokemonSlot/>
 }
 
 

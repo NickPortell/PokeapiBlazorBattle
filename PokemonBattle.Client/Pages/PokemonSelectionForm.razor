@@ -1,17 +1,18 @@
 ﻿
-<EditForm Model="@PokemonTeamData">
-        <label class="pokemon-selection-title" for="searchable-pokedataList">
-            Pokemon Selection
-        </label>
-        <InputSelect id="searchable-pokedataList" @bind-Value="@Pokemon">
-            <option value="Default">Select one..</option>
-            @foreach (var pokemon in PokemonList)
-            {
-            <option value="@pokemon">@pokemon.Name.ToUpper()</option>
-            }
+<EditForm Model="@State.PokemonTeam">
+    <label class="pokemon-selection-title" for="searchable-pokedataList">
+        Pokemon Selection
+    </label>
+    <InputSelect id="searchable-pokedataList" @bind-Value="@Pokemon">
+        <option value="Default">Select one..</option>
+        @foreach (var pokemon in State.Pokedex.PokemonList)
+        {
+            <option value="@pokemon.Name">@pokemon.Name.ToUpper()</option>
+        }
     </InputSelect>
-    <img src="@(Pokemon == null 
-                ? DefaultPokemonImg 
-                : Pokemon.Sprites.Front_Default)" />
+    <img src="@(GetPokemonData(Pokemon) == null
+                ? DefaultPokemonImg
+                : GetPokemonData(Pokemon).Sprites.Front_Default)" />
+    <input @onclick=@(args => SwapPokemonInSlotWith(GetPokemonData(Pokemon), args))>Choose!</input>
 </EditForm>
 

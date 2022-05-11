@@ -19,6 +19,6 @@ namespace PokemonBattle.Client.StateManagement
         public string EmptyPokemonBaseClass => "empty-pokeball";
 
         public PokemonData SelectedPokemon { get; set; }
-
+        public int SelectedSlotIndex { get; set; }
     }
 }

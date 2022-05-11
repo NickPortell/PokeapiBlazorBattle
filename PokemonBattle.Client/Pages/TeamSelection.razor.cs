@@ -26,7 +26,7 @@ namespace PokemonBattle.Client.Pages
         private PokemonController PokemonController { get; set; }
 
         [Inject]
-        public StateManager state { get; set; }
+        public StateManager State { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -36,14 +36,14 @@ namespace PokemonBattle.Client.Pages
                 Offset = 10
             };
 
-            state.Pokedex = await GetPokemonCollection(request);
-            state.PokemonTeam = GetSelectedTeam();
+            State.Pokedex = await GetPokemonCollection(request);
+            State.PokemonTeam = GetSelectedTeam();
             PokemonTeamSlotElements = PokemonTeamSlotElements == null
                                       ? new Dictionary<string, ElementReference>()
                                       : PokemonTeamSlotElements;
-            state.PokemonTeamSlotClasses = state.PokemonTeamSlotClasses == null ? GetTeamSlotClasses() : state.PokemonTeamSlotClasses;
+            State.PokemonTeamSlotClasses = State.PokemonTeamSlotClasses == null ? GetTeamSlotClasses() : State.PokemonTeamSlotClasses;
             ClickedClass = "Clicked";
-            isInitialized = state.Pokedex != null && state.PokemonTeam != null;
+            isInitialized = State.Pokedex != null && State.PokemonTeam != null;
         }
 
         private async Task<PokemonCollection> GetPokemonCollection(GetPokemonCollectionRequestDto request)
@@ -69,17 +69,22 @@ namespace PokemonBattle.Client.Pages
 
         public void SelectPokemon(PokemonData pokemon)
         {
-            state.SelectedPokemon = pokemon;
+            State.SelectedPokemon = pokemon;
+        }
+
+        public void ChangePokemonSlot(PokemonData pokemon)
+        {
+            State.PokemonTeam[State.SelectedSlotIndex] = pokemon;
         }
 
         public List<PokemonData> GetSelectedTeam()
         {
             var pokemonTeam = new List<PokemonData>()
             {
-                state.Pokedex.PokemonList[0],
+                State.Pokedex.PokemonList[0],
                 null,
-                state.Pokedex.PokemonList[2],
-                state.Pokedex.PokemonList[3],
+                State.Pokedex.PokemonList[2],
+                State.Pokedex.PokemonList[3],
                 null,
                 null
             };
@@ -90,7 +95,7 @@ namespace PokemonBattle.Client.Pages
         {
             List<string> teamSlotClasses = new List<string>();
 
-            foreach (var pokemon in state.PokemonTeam)
+            foreach (var pokemon in State.PokemonTeam)
             {
                 teamSlotClasses.Add(SetSlotBaseClass(""));
             }
@@ -99,14 +104,14 @@ namespace PokemonBattle.Client.Pages
 
         private string SetSlotBaseClass(string classList)
         {
-            return string.IsNullOrEmpty(classList) ? state.PokemonTeamSlotBaseClass : classList;
+            return string.IsNullOrEmpty(classList) ? State.PokemonTeamSlotBaseClass : classList;
         }
 
         public void ClickTeamSlot(int slotIndex)
         {
             ClearClickedFromClassList(slotIndex);
 
-            List<string> classList = state.PokemonTeamSlotClasses[slotIndex].Split(' ').ToList();
+            List<string> classList = State.PokemonTeamSlotClasses[slotIndex].Split(' ').ToList();
             if (!classList.Contains(ClickedClass))
             {
                 classList.Add(ClickedClass);
@@ -114,20 +119,20 @@ namespace PokemonBattle.Client.Pages
             else
             {
                 classList.Remove(ClickedClass);
-                state.SelectedPokemon = null;
+                State.SelectedPokemon = null;
             }
-            state.PokemonTeamSlotClasses[slotIndex] = string.Join(' ', classList);
+            State.PokemonTeamSlotClasses[slotIndex] = string.Join(' ', classList);
         }
 
         private void ClearClickedFromClassList(int slotIndexToAvoid)
         {
-            for (int i = 0; i < state.PokemonTeamSlotClasses.Count; i++)
+            for (int i = 0; i < State.PokemonTeamSlotClasses.Count; i++)
             {
-                if (state.PokemonTeamSlotClasses[i].Contains(ClickedClass) && i != slotIndexToAvoid)
+                if (State.PokemonTeamSlotClasses[i].Contains(ClickedClass) && i != slotIndexToAvoid)
                 {
-                    List<string> classList = state.PokemonTeamSlotClasses[i].Split(' ').ToList();
+                    List<string> classList = State.PokemonTeamSlotClasses[i].Split(' ').ToList();
                     classList.Remove(ClickedClass);
-                    state.PokemonTeamSlotClasses[i] = string.Join(' ', classList);
+                    State.PokemonTeamSlotClasses[i] = string.Join(' ', classList);
                 }
             }
         }
