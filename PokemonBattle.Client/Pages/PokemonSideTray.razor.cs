@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
-using PokemonBattle.Client.Controllers;
 using PokemonBattle.Models.V1.Pokemon;
 using System.Threading.Tasks;
 
-namespace PokemonBattle.Client.Components.Classes.Shared
+namespace PokemonBattle.Client.Pages
 {
-    public class PokemonSideTray : ComponentBase
+    public partial class PokemonSideTray : ComponentBase
     {
 
         [Parameter]

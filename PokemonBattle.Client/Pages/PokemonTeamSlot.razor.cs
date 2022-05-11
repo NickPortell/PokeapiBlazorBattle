@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using PokemonBattle.Models.V1.Pokemon;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace PokemonBattle.Client.Components.Classes.Shared
+namespace PokemonBattle.Client.Pages
 {
-    public class PokemonTeamSlot : ComponentBase
+    public partial class PokemonTeamSlot : ComponentBase
     {
         [Parameter]
         public PokemonData Pokemon { get; set; }

@@ -1,6 +1,5 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using PokemonBattle.Client.Controllers;
 using PokemonBattle.Dto.Request;
 using PokemonBattle.Models.V1.Pokemon;
@@ -8,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PokemonBattle.Client.Components.Classes.Shared
+namespace PokemonBattle.Client.Pages
 {
-    public class TeamSelection : ComponentBase
+    public partial class TeamSelection : ComponentBase
     {
         public PokemonData SelectedPokemon { get; set; }
 

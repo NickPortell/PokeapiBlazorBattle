@@ -4,9 +4,9 @@ using PokemonBattle.Client.StateManagement;
 using PokemonBattle.Models.V1.Pokemon;
 using System.Collections.Generic;
 
-namespace PokemonBattle.Client.Components.Classes.Shared
+namespace PokemonBattle.Client.Pages
 {
-    public class PokemonSelectionForm : ComponentBase
+    public partial class PokemonSelectionForm : ComponentBase
     {
         [Parameter]
         public List<PokemonData> PokemonTeamData { get; set; }
