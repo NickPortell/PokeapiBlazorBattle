@@ -13,6 +13,5 @@
     <img src="@(GetPokemonData(Pokemon) == null
                 ? DefaultPokemonImg
                 : GetPokemonData(Pokemon).Sprites.Front_Default)" />
-    <input @onclick=@(args => SwapPokemonInSlotWith(GetPokemonData(Pokemon), args))>Choose!</input>
 </EditForm>
-
+<button @onclick=@(args => SwapPokemonInSlotWith(GetPokemonData(Pokemon), args))>Choose!</button>

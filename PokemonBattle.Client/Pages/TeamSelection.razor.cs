@@ -37,7 +37,7 @@ namespace PokemonBattle.Client.Pages
             };
 
             State.Pokedex = await GetPokemonCollection(request);
-            State.PokemonTeam = GetSelectedTeam();
+            State.PokemonTeam = await GetSelectedTeam();
             PokemonTeamSlotElements = PokemonTeamSlotElements == null
                                       ? new Dictionary<string, ElementReference>()
                                       : PokemonTeamSlotElements;
@@ -72,23 +72,36 @@ namespace PokemonBattle.Client.Pages
             State.SelectedPokemon = pokemon;
         }
 
-        public void ChangePokemonSlot(PokemonData pokemon)
+        public async void ChangePokemonSlot(PokemonData pokemon)
         {
             State.PokemonTeam[State.SelectedSlotIndex] = pokemon;
+            State.SelectedPokemon = pokemon;
+            await LocalStorage.SetItemAsync<List<PokemonData>>("PokemonTeam", State.PokemonTeam);
+            ShouldRender();
         }
 
-        public List<PokemonData> GetSelectedTeam()
+        public async Task<List<PokemonData>> GetSelectedTeam()
         {
-            var pokemonTeam = new List<PokemonData>()
+            if (State.PokemonTeam == null || State.PokemonTeam.Count < 6)
             {
-                State.Pokedex.PokemonList[0],
-                null,
-                State.Pokedex.PokemonList[2],
-                State.Pokedex.PokemonList[3],
-                null,
-                null
-            };
-            return pokemonTeam;
+                var teamLocally = await LocalStorage.GetItemAsync<List<PokemonData>>("PokemonTeam");
+                if (teamLocally == null || teamLocally.Count < 6)
+                {
+                    teamLocally = new List<PokemonData>()
+                    {
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                    };
+                    await LocalStorage.SetItemAsync<List<PokemonData>>("PokemonTeam", teamLocally);
+                }
+                State.PokemonTeam = await LocalStorage.GetItemAsync<List<PokemonData>>("PokemonTeam");
+                return State.PokemonTeam;
+            }
+            return State.PokemonTeam;
         }
 
         public List<string> GetTeamSlotClasses()
@@ -122,6 +135,7 @@ namespace PokemonBattle.Client.Pages
                 State.SelectedPokemon = null;
             }
             State.PokemonTeamSlotClasses[slotIndex] = string.Join(' ', classList);
+            State.SelectedSlotIndex = slotIndex;
         }
 
         private void ClearClickedFromClassList(int slotIndexToAvoid)

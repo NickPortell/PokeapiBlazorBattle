@@ -10,6 +10,7 @@ namespace PokemonBattle.Client.Pages
 {
     public partial class PokemonTeamSlot : ComponentBase
     {
+        [Parameter]
         public PokemonData Pokemon { get; set; }
 
         [Parameter]
@@ -44,30 +45,39 @@ namespace PokemonBattle.Client.Pages
         public ElementReference Slot;
 
         [Inject]
-        public StateManager state { get; set; }
+        public StateManager State { get; set; }
 
         [Inject]
         public IJSRuntime JSRuntime { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
-            Pokemon = state.PokemonTeam[SlotIndex];
-            SlotClass = state.PokemonTeamSlotClasses[SlotIndex];
+            Pokemon = State.PokemonTeam[SlotIndex];
+            SlotClass = State.PokemonTeamSlotClasses[SlotIndex];
 
             SlotId = Pokemon != null ? Pokemon.Id + "-" + SlotIndex : "empty-slot-" + SlotIndex;
-            ImgContainerClass = state.PokemonTeamImageBaseClass;
+            ImgContainerClass = State.PokemonTeamImageBaseClass;
             ImgName = Pokemon != null ? Pokemon.Name : "empty-pokemon";
-            ImgClass = Pokemon != null ? Pokemon.Name + "-img" : state.EmptyPokemonBaseClass;
+            ImgClass = Pokemon != null ? Pokemon.Name + "-img" : State.EmptyPokemonBaseClass;
             ImgSrc = Pokemon != null ? Pokemon.Sprites.Front_Default : @DefaultTeamPokemonImgUrl;
             ImgAlt = Pokemon != null ? Pokemon.Name : "EmptyPokeball";
-            DisplayNameContainerClass = state.PokemonTeamNameBaseClass;
+            DisplayNameContainerClass = State.PokemonTeamNameBaseClass;
             DisplayName = Pokemon != null ? Pokemon.Name.ToUpper() : "Empty";
         }
 
         protected override async Task OnParametersSetAsync()
         {
-            Pokemon = state.PokemonTeam[SlotIndex];
-            SlotClass = state.PokemonTeamSlotClasses[SlotIndex];
+            Pokemon = State.PokemonTeam[SlotIndex];
+            SlotClass = State.PokemonTeamSlotClasses[SlotIndex];
+
+            SlotId = Pokemon != null ? Pokemon.Id + "-" + SlotIndex : "empty-slot-" + SlotIndex;
+            ImgContainerClass = State.PokemonTeamImageBaseClass;
+            ImgName = Pokemon != null ? Pokemon.Name : "empty-pokemon";
+            ImgClass = Pokemon != null ? Pokemon.Name + "-img" : State.EmptyPokemonBaseClass;
+            ImgSrc = Pokemon != null ? Pokemon.Sprites.Front_Default : @DefaultTeamPokemonImgUrl;
+            ImgAlt = Pokemon != null ? Pokemon.Name : "EmptyPokeball";
+            DisplayNameContainerClass = State.PokemonTeamNameBaseClass;
+            DisplayName = Pokemon != null ? Pokemon.Name.ToUpper() : "Empty";
         }
 
         public async void ClickPokemon(MouseEventArgs args)
