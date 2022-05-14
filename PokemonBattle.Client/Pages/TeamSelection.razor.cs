@@ -82,10 +82,16 @@ namespace PokemonBattle.Client.Pages
 
         public async Task<List<PokemonData>> GetSelectedTeam()
         {
-            if (State.PokemonTeam == null || State.PokemonTeam.Count < 6)
+            var teamLocally = await LocalStorage.GetItemAsync<List<PokemonData>>("PokemonTeam");
+
+            if (teamLocally == null || teamLocally.Count < 6)
             {
-                var teamLocally = await LocalStorage.GetItemAsync<List<PokemonData>>("PokemonTeam");
-                if (teamLocally == null || teamLocally.Count < 6)
+                if (State.PokemonTeam != null && State.PokemonTeam.Count == 6)
+                {
+                    await LocalStorage.SetItemAsync<List<PokemonData>>("PokemonTeam", State.PokemonTeam);
+                    teamLocally = State.PokemonTeam;
+                }
+                else
                 {
                     teamLocally = new List<PokemonData>()
                     {
@@ -98,9 +104,17 @@ namespace PokemonBattle.Client.Pages
                     };
                     await LocalStorage.SetItemAsync<List<PokemonData>>("PokemonTeam", teamLocally);
                 }
-                State.PokemonTeam = await LocalStorage.GetItemAsync<List<PokemonData>>("PokemonTeam");
-                return State.PokemonTeam;
             }
+
+            if (State.PokemonTeam == null || State.PokemonTeam.Count < 6)
+            {
+                State.PokemonTeam = await LocalStorage.GetItemAsync<List<PokemonData>>("PokemonTeam");
+            }
+            else if (State.PokemonTeam.Select(p => p != null && teamLocally.Contains(p) && (State.PokemonTeam.IndexOf(p) == teamLocally.IndexOf(p))).Contains(false))
+            {
+                await LocalStorage.SetItemAsync<List<PokemonData>>("PokemonTeam", State.PokemonTeam);
+            }
+
             return State.PokemonTeam;
         }
 
