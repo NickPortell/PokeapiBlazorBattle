@@ -9,6 +9,6 @@ namespace PokemonBattle.Models.V1.Pokemon
     {
         public int Slot { get; set; }
 
-        public PokemonTypeData Data { get; set; }
+        public PokemonTypeData Type { get; set; }
     }
 }
