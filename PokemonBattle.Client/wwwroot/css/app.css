@@ -71,17 +71,17 @@ a, .btn-link {
 
 @keyframes spinning {
     from {
-        transform: rotate(-45deg) translateX(175px) translateY(100px) rotate(45deg)
+        transform: rotate(0deg)
     }
 
     to {
-        transform: rotate(45deg) translateX(-175px) translateY(-100px) rotate(-45deg);
+        transform: rotate(360deg);
     }
 }
 
 .content-loading > img {
     animation-name: spinning;
-    animation-duration: 3s;
+    animation-duration: 1.5s;
     animation-iteration-count: infinite;
     /* linear | ease | ease-in | ease-out | ease-in-out */
     animation-timing-function: linear;
