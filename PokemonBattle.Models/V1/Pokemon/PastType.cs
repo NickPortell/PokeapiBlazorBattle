@@ -7,7 +7,7 @@ namespace PokemonBattle.Models.V1.Pokemon
 {
     public class PastType
     {
-        public Generation Gen { get; set; }
+        public Generation Generation { get; set; }
 
         public PokemonType[] Types { get; set; }
     }

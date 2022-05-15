@@ -9,6 +9,6 @@ namespace PokemonBattle.Models.V1.Pokemon
     {
         public Item Data { get; set; }
         
-        public VersionDetail[] VersionDetails { get; set; }
+        public VersionDetail[] Version_Details { get; set; }
     }
 }
