@@ -23,6 +23,8 @@ namespace PokemonBattle.Client.Pages
 
         public string DefaultPokemonImg = "Content\\MissingNo.png";
 
+        public string PokemonTypeBaseUrl = "Content\\PokemonTypes"; 
+
         public bool DisplaySideTray { get; set; }
 
         protected override async Task OnInitializedAsync()
@@ -44,6 +46,13 @@ namespace PokemonBattle.Client.Pages
         public void SetBaseClasses()
         {
             EmptyPokemonBaseClass = "empty-pokeball";
+        }
+
+        public string GetPokemonTypeImg(string pokemonTypeName)
+        {
+            string typeNameTitleCase = pokemonTypeName[0].ToString().ToUpper() + pokemonTypeName.Substring(1).ToLower();
+
+            return PokemonTypeBaseUrl + $"\\{pokemonTypeName}.png";
         }
     }
 }

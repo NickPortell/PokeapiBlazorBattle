@@ -1,12 +1,19 @@
 ﻿
 <div class=@ImgContainerClass>
-    <img name=@ImgName
+    @if (Pokemon != null)
+    {
+        <img name=@ImgName
          class=@ImgClass
          src=@ImgSrc
          alt=@ImgAlt />
-    <div class="pokemon-stats-breakdown-container">
-        @if (Pokemon != null)
-        {
+        <div class="pokemon-type-breakdown-container">
+            <img src=@GetPokemonTypeImg(Pokemon.Types[0].Type.Name) />
+            @if (Pokemon.Types.Count() > 1)
+            {
+                <img src=@GetPokemonTypeImg(Pokemon.Types[1].Type.Name) />
+            }
+        </div>
+        <div class="pokemon-stats-breakdown-container">
             <div>
                 <p>@Pokemon.Stats[0].Stat.Name</p>
                 <p>@Pokemon.Stats[0].Base_Stat</p>
@@ -31,8 +38,8 @@
                 <p>@Pokemon.Stats[5].Stat.Name</p>
                 <p>@Pokemon.Stats[5].Base_Stat</p>
             </div>
-        }
-    </div>
+        </div>
+    }
 </div>
 
 @code {
