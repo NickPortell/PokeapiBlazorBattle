@@ -33,7 +33,7 @@ namespace PokemonBattle.Client.Pages
             var request = new GetPokemonCollectionRequestDto
             {
                 Limit = 10,
-                Offset = 10
+                Offset = 0
             };
 
             State.Pokedex = await GetPokemonCollection(request);

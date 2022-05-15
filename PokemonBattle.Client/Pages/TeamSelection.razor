@@ -4,6 +4,9 @@
 
 @if (isInitialized == false)
 {
+    <div class="content-loading">
+        <img src="Content/PokeballEmptyOutline.png"/>
+    </div>
     <p>Loading...</p>
 }
 else
@@ -18,9 +21,4 @@ else
         <PokemonSideTray Pokemon=State.SelectedPokemon />
     </div>
     <PokemonSelectionForm ChangePokemonSlot=ChangePokemonSlot/>
-}
-
-
-@code {
-
 }
