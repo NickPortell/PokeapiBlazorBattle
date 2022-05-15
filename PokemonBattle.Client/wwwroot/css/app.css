@@ -69,6 +69,29 @@ a, .btn-link {
     display: none !important;
 }
 
+@keyframes spinning {
+    from {
+        transform: rotate(-45deg) translateX(175px) translateY(100px) rotate(45deg)
+    }
+
+    to {
+        transform: rotate(45deg) translateX(-175px) translateY(-100px) rotate(-45deg);
+    }
+}
+
+.content-loading > img {
+    animation-name: spinning;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    /* linear | ease | ease-in | ease-out | ease-in-out */
+    animation-timing-function: linear;
+    width: 13%;
+    position: absolute;
+    left: 45%;
+    top: 41%;
+    mix-blend-mode: color-dodge;
+}
+
 .pokemon-team-container {
     display: flex;
     flex-direction: row;
@@ -105,6 +128,7 @@ a, .btn-link {
         padding-bottom: 20px;
         transition-delay: .15s;
         transition-duration: .25s;
+        padding-top: 17.49px;
     }
 
         .pokemon-team-img > .empty-pokeball:hover {
@@ -154,6 +178,12 @@ a, .btn-link {
         background-image: url(../Content/Forest.png);
         background-size: cover;
     }
+
+.pokemon-type-breakdown-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 
 .pokemon-stats-breakdown-container {
     border: solid;
